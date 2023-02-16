@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.codecool.TaskTiger.model.user.Gender.*;
 
 @Service
 public class UserService {
+
     private final List<UserModel> userModelList = List.of(
             new UserModel(1, "username1", "firstname1", "lastname1", LocalDate.of(2000, 3, 13), MALE, "helloka", "aa" +
                     "@gmail.com", "1231", LocalDateTime.now()),
@@ -27,5 +29,10 @@ public class UserService {
 
     public List<UserModel> getAllUsers() {
         return List.copyOf(userModelList);
+    }
+
+    public UserModel getUserById(int id) {
+        return userModelList.stream().filter(userModel -> userModel.getId()==id)
+                .findFirst().orElseThrow(NoSuchElementException::new);
     }
 }
