@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 @Data
 public abstract class UserModel {
     private final int id;
