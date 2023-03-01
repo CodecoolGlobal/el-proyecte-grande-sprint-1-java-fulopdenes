@@ -1,5 +1,6 @@
 package com.codecool.TaskTiger.model;
 
+import com.codecool.TaskTiger.model.user.User;
 import com.codecool.TaskTiger.model.user.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,9 +29,9 @@ public class Reservation {
     private long id;
     private LocalDateTime createdDate;
 
-    private UserModel userModel;
+    private User client;
 
-    private UserModel tasker;
+    private User tasker;
 
     private List<TimeSlot> reservationTimeFrame;
 
