@@ -1,5 +1,7 @@
 package com.codecool.TaskTiger.model.user;
 
+import com.codecool.TaskTiger.model.ClientReview;
+import com.codecool.TaskTiger.model.Reservation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -44,12 +47,12 @@ public class User {
     )
     private String username;
     @Column(
-            name = "user_firstname",
+            name = "user_firstName",
             nullable = false
     )
     private String firstName;
     @Column(
-            name = "user_lastname",
+            name = "user_lastName",
             nullable = false
     )
     private String lastName;
@@ -80,16 +83,16 @@ public class User {
     )
     private String phoneNumber;
     @Column(
-            name = "user_registrationdate",
+            name = "user_registrationDate",
             updatable = false
     )
     LocalDateTime registrationDate = LocalDateTime.now();
     @Column(
-            name = "user_isbanned"
+            name = "user_isBanned"
     )
     private boolean isBanned = false;
     @Column(
-            name = "user_isactivated"
+            name = "user_isActivated"
     )
     private boolean isActivated = false;
     @Column(
@@ -97,14 +100,19 @@ public class User {
     )
     private String password;
     @Column(
-            name = "user_activationdate",
+            name = "user_activationDate",
             updatable = false
     )
     private LocalDateTime activationDate;
-    //TODO
-    private List<String> reviews = new ArrayList<>();
-    //TODO
-    private List<String> reservations = new ArrayList<>();
-    //TODO
-    private String role;
+    @OneToMany(
+            cascade = ALL,
+            mappedBy = "reviewedUser")
+    private List<ClientReview> reviews;
+    @OneToMany(
+            cascade = ALL,
+            mappedBy = "client"
+    )
+    private List<Reservation> reservations;
+    @ManyToOne
+    private Role role;
 }

@@ -1,7 +1,6 @@
 package com.codecool.TaskTiger.model;
 
 import com.codecool.TaskTiger.model.user.User;
-import com.codecool.TaskTiger.model.user.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,14 +9,14 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.ALL;
+
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reservation {
-
-
 
     @Id
     @SequenceGenerator(name = "reservationId_sequence",
@@ -29,6 +28,8 @@ public class Reservation {
     private long id;
     private LocalDateTime createdDate;
 
+    @ManyToOne(cascade = ALL)
+    @JoinColumn(name = "client_id")
     private User client;
 
     private User tasker;

@@ -1,10 +1,12 @@
 package com.codecool.TaskTiger.model;
 
-import com.codecool.TaskTiger.model.user.UserModel;
+import com.codecool.TaskTiger.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 @Entity
 @NoArgsConstructor
@@ -21,8 +23,9 @@ public class ClientReview {
   @Column(name = "clientReviewId", updatable = false)
     private Long id;
 
-  @Column
-  private UserModel revieweduser;
+  @ManyToOne(cascade = ALL)
+  @JoinColumn(name = "user_id")
+  private User reviewedUser;
 
   @Column
     private int reviewValue;
