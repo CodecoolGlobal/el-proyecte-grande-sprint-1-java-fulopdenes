@@ -1,5 +1,6 @@
 package com.codecool.TaskTiger.model;
 
+import com.codecool.TaskTiger.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,8 @@ public class TaskerReview {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    //    private UserModel userModel;
+    @ManyToOne
+    private User user;
     private LocalDateTime createdDate;
     private int value;
     @Enumerated(EnumType.STRING)
