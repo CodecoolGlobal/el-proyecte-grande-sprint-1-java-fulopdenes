@@ -1,5 +1,6 @@
-package com.codecool.TaskTiger.model.user;
+package com.codecool.TaskTiger.model;
 
+import com.codecool.TaskTiger.model.user.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

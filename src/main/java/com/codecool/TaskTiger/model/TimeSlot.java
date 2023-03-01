@@ -1,4 +1,4 @@
-package com.codecool.TaskTiger.model.user;
+package com.codecool.TaskTiger.model;
 
 
 

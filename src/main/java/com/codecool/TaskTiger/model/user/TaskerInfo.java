@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.model.user;
 
 
+import com.codecool.TaskTiger.model.TimeSlot;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
