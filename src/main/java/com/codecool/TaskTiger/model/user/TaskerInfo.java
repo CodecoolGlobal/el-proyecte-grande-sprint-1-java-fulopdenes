@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.model.user;
 
 
+import com.codecool.TaskTiger.model.TaskerReview;
 import com.codecool.TaskTiger.model.TimeSlot;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,8 @@ import org.hibernate.annotations.ManyToAny;
 
 
 import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 
 @Data
@@ -27,14 +30,12 @@ public class TaskerInfo {
             generator = "taskerInfo_sequence")
     @Column(name = "taskerInfoId", updatable = false)
     @Id
-        private  long Id;
-    @ManyToAny
-    @JoinTable
+    private long Id;
+    @OneToMany(cascade = ALL, mappedBy = "tasker")
     private List<TimeSlot> timeSlotList;
 
-
-//    @ManyToMany
-//    private List<TaskerReview> taskerReviewList;
+    @OneToMany(cascade = ALL, mappedBy = "user")
+    private List<TaskerReview> taskerReviewList;
 
 
 }

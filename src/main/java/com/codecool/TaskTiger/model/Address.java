@@ -1,13 +1,12 @@
 package com.codecool.TaskTiger.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @NoArgsConstructor
@@ -16,13 +15,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "address_sequence",
+            sequenceName = "address_sequence")
+    @GeneratedValue(strategy = SEQUENCE,
+            generator = "address_sequence"
+    )
     private Long id;
+    @Column(name = "country", nullable = false)
     private String country;
-    private String state;
+    @Column(name = "zipcode", nullable = false)
     private String zipcode;
+    @Column(name = "county", nullable = false)
     private String county;
+    @Column(name = "city", nullable = false)
     private String city;
+    @Column(name = "street", nullable = false)
     private String street;
+    @Column(name = "street_nr", nullable = false)
     private int street_nr;
+    @Column(name = "building")
+    private String building;
 }
