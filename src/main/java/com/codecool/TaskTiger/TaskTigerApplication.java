@@ -1,10 +1,9 @@
 package com.codecool.TaskTiger;
 
-import com.codecool.TaskTiger.model.DataGenerator;
-import com.codecool.TaskTiger.model.TimeSlot;
-import com.codecool.TaskTiger.model.WorkType;
+import com.codecool.TaskTiger.model.*;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.repository.ReservationRepository;
 import com.codecool.TaskTiger.repository.TimeSlotRepository;
 import com.codecool.TaskTiger.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -12,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 
@@ -24,7 +24,7 @@ public class TaskTigerApplication {
 
     @Bean
     CommandLineRunner commandLineRunner2(UserRepository userRepository, DataGenerator dataGenerator,
-                                         TimeSlotRepository timeSlotRepository) {
+                                         TimeSlotRepository timeSlotRepository, ReservationRepository reservationRepository) {
         List<WorkType> feriTypes = List.of(WorkType.CLEANING, WorkType.GARDENING);
         List<WorkType> mariTypes = List.of(WorkType.DOG_WALKING, WorkType.GARDENING);
         List<WorkType> tecaTypes = List.of(WorkType.FURNITURE_ASSEMBLY, WorkType.MINOR_HOME_REPAIRS);
@@ -169,10 +169,17 @@ public class TaskTigerApplication {
                 timeSlot.setTasker(taskerUser8.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
+//            User zsolt = DataGenerator.generateRandomUser("zsolti", "Zsolt", "Béka");
+//            User savedZsolt = userRepository.save(zsolt); // save the entity and get the saved object with generated id
+//            Address address = DataGenerator.generateRandomAddress();
+//            savedZsolt.setTaskerInfo(null);
+//            savedZsolt.setTasker(false);
+//            userRepository.save(savedZsolt);
+//            Reservation reservation = DataGenerator.generateRandomReservation(savedZsolt, siyar, address, WorkType.HELP_MOVING);
+//            reservationRepository.save(reservation);
+        };
 
-        }
 
-                ;
     }
 
 };

@@ -56,7 +56,53 @@ public class DataGenerator {
                 .tasker(user.getTaskerInfo())
                 .build();
     }
+    private static final String[] COUNTRIES = {"Hungary", "USA", "Germany", "France", "UK"};
+    private static final String[] ZIPCODES = {"1011", "2000", "1234", "5678", "9999"};
+    private static final String[] COUNTIES = {"Budapest", "New York", "Berlin", "Paris", "London"};
+    private static final String[] CITIES = {"Budapest", "New York", "Berlin", "Paris", "London"};
+    private static final String[] STREETS = {"Main Street", "Broadway", "Fifth Avenue", "Champs-Élysées", "Oxford Street"};
 
+
+
+    public static Address generateRandomAddress() {
+        String country = COUNTRIES[RANDOM.nextInt(COUNTRIES.length)];
+        String zipcode = ZIPCODES[RANDOM.nextInt(ZIPCODES.length)];
+        String county = COUNTIES[RANDOM.nextInt(COUNTIES.length)];
+        String city = CITIES[RANDOM.nextInt(CITIES.length)];
+        String street = STREETS[RANDOM.nextInt(STREETS.length)];
+        int streetNumber = RANDOM.nextInt(100) + 1;
+        String building = null;
+        if (RANDOM.nextBoolean()) {
+            building = "Building " + (RANDOM.nextInt(20) + 1);
+        }
+        return Address.builder()
+                .country(country)
+                .zipcode(zipcode)
+                .county(county)
+                .city(city)
+                .street(street)
+                .street_nr(streetNumber)
+                .building(building)
+                .build();
+    }
+
+
+    public static Reservation generateRandomReservation(User client, User tasker, Address address, WorkType workType) {
+        LocalDateTime createdDate = LocalDateTime.now();
+        String description = "Random description";
+        ;
+        ReservationStatus reservationStatus = ReservationStatus.PENDING;
+
+        return Reservation.builder()
+                .createdDate(createdDate)
+                .client(client)
+                .tasker(tasker)
+                .description(description)
+                .workType(workType)
+                .reservationStatus(reservationStatus)
+                .address(address)
+                .build();
+    }
 
     private static String generateRandomPhoneNumber() {
         StringBuilder sb = new StringBuilder();
