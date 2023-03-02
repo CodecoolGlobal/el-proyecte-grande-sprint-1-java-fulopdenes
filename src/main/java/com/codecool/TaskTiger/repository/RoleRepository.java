@@ -1,9 +1,9 @@
 package com.codecool.TaskTiger.repository;
 
-import com.codecool.TaskTiger.model.Skill;
+import com.codecool.TaskTiger.model.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SkillRepository extends JpaRepository<Skill, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }
