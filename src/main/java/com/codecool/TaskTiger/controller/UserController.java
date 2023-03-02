@@ -22,7 +22,7 @@ public class UserController {
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
-    @GetMapping("/register")
+    @PostMapping("/register")
     public Long userRegistration(@RequestBody UserDTO userDTO){
         return userService.saveUser(userDTO);
     }
