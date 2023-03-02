@@ -25,8 +25,8 @@ public class UserService {
         return null;
     }
 
-    public User getUserById(int id) {
-        return null;
+    public User getUserById(Long id) {
+        return userRepository.getUserById(id);
     }
 
     public long saveUser(UserDTO userDTO) {
