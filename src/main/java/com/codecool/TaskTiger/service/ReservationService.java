@@ -7,7 +7,6 @@ import com.codecool.TaskTiger.model.Reservation;
 import com.codecool.TaskTiger.model.ReservationStatus;
 import com.codecool.TaskTiger.repository.ReservationRepository;
 import com.codecool.TaskTiger.repository.TimeSlotRepository;
-import com.codecool.TaskTiger.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +16,17 @@ import java.util.List;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
-    private final UserRepository userRepository;
 
     private final TimeSlotRepository timeSlotRepository;
 
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository, UserRepository userRepository, TimeSlotRepository timeSlotRepository) {
+    public ReservationService(ReservationRepository reservationRepository, TimeSlotRepository timeSlotRepository) {
         this.reservationRepository = reservationRepository;
-        this.userRepository = userRepository;
         this.timeSlotRepository = timeSlotRepository;
     }
 
 
     public Long persistReservation(ReservationDTO reservationDTO) {
-
         Reservation savedReservation =
                 reservationRepository.save(Reservation.builder().createdDate(reservationDTO.createdDate())
                         .client(reservationDTO.client()).tasker(reservationDTO.tasker())
@@ -64,7 +60,7 @@ public class ReservationService {
     public boolean saveMessage(MessageDTO messageDTO, Long id) {
         Reservation reservation = reservationRepository.findById(id).orElseThrow();
         reservation.getMessageList().add(Message.builder().sender(messageDTO.sender()).
-                receiver(messageDTO.reciever()).createdDate(messageDTO.createdDate()).
+                receiver(messageDTO.receiver()).createdDate(messageDTO.createdDate()).
                 message(messageDTO.message()).reservation(messageDTO.reservation()).build());
         reservationRepository.save(reservation);
         return true;
