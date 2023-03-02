@@ -1,5 +1,6 @@
 package com.codecool.TaskTiger.controller;
 
+import com.codecool.TaskTiger.dto.NewUserDTO;
 import com.codecool.TaskTiger.dto.UserDTO;
 import com.codecool.TaskTiger.model.user.User;
 import com.codecool.TaskTiger.service.UserService;
@@ -22,9 +23,13 @@ public class UserController {
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
+//    @PostMapping("/register")
+//    public Long userRegistration(@RequestBody UserDTO userDTO){
+//        return userService.saveUser(userDTO);
+//    }
     @PostMapping("/register")
-    public Long userRegistration(@RequestBody UserDTO userDTO){
-        return userService.saveUser(userDTO);
+    public Long registerNewUser(@RequestBody User newUser){
+        return userService.saveUser(newUser);
     }
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id){

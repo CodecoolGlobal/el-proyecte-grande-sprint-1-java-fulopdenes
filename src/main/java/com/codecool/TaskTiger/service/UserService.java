@@ -1,5 +1,6 @@
 package com.codecool.TaskTiger.service;
 
+import com.codecool.TaskTiger.dto.NewUserDTO;
 import com.codecool.TaskTiger.dto.UserDTO;
 import com.codecool.TaskTiger.dto.UserMapper;
 import com.codecool.TaskTiger.model.user.User;
@@ -29,8 +30,8 @@ public class UserService {
         return userRepository.getUserById(id);
     }
 
-    public long saveUser(UserDTO userDTO) {
-        User newUser = userRepository.save(userMapper.mapToEntity(userDTO, User.class));
+    public long saveUser(User user) {
+        User newUser = userRepository.save(user);
         return newUser.getId();
     }
 }
