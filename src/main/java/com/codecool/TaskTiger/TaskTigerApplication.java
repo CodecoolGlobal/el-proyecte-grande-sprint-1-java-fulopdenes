@@ -171,10 +171,7 @@ public class TaskTigerApplication {
             }
 //            User zsolt = DataGenerator.generateRandomUser("zsolti", "Zsolt", "Béka");
 //            User savedZsolt = userRepository.save(zsolt); // save the entity and get the saved object with generated id
-//            Address address = DataGenerator.generateRandomAddress();
-//            savedZsolt.setTaskerInfo(null);
-//            savedZsolt.setTasker(false);
-//            userRepository.save(savedZsolt);
+//            Address address = DataGenerator.generateRandomAddress();;
 //            Reservation reservation = DataGenerator.generateRandomReservation(savedZsolt, siyar, address, WorkType.HELP_MOVING);
 //            reservationRepository.save(reservation);
         };

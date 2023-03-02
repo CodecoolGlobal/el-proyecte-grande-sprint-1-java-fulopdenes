@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.controller;
 
 
+import com.codecool.TaskTiger.dto.LoginDTO;
 import com.codecool.TaskTiger.dto.NewUserDTO;
 import com.codecool.TaskTiger.model.TimeSlot;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
@@ -49,5 +50,9 @@ public class UserController {
         return userService.saveTimeSlots(timeSlotList, id);
     }
 
+    @PostMapping("/login")
+    public User getUserByNameAndPassword(@RequestBody LoginDTO loginDTO){
+        return userService.getByUserNameAndPassword(loginDTO);
+    }
 
 }

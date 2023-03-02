@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.service;
 
 
+import com.codecool.TaskTiger.dto.LoginDTO;
 import com.codecool.TaskTiger.dto.NewUserDTO;
 import com.codecool.TaskTiger.dto.UserMapper;
 import com.codecool.TaskTiger.model.user.Gender;
@@ -79,8 +80,8 @@ public class UserService {
         return userRepository.save(tasker);
     }
 
-    public User getByUserNameAndPassword(String userName, String password){
-        return userRepository.getUserByUsernameAndPassword(userName, password);
+    public User getByUserNameAndPassword(LoginDTO loginDTO){
+        return userRepository.getUserByUsernameAndPassword(loginDTO.userName(), loginDTO.password());
     }
 
     public List<User> filterUserByWorkType(WorkType workType){
