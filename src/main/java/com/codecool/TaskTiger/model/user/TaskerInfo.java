@@ -5,6 +5,7 @@ import com.codecool.TaskTiger.model.Skill;
 import com.codecool.TaskTiger.model.TaskerReview;
 import com.codecool.TaskTiger.model.TimeSlot;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.codecool.TaskTiger.model.WorkType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,11 +45,8 @@ public class TaskerInfo {
     @OneToMany(cascade = ALL, mappedBy = "reviewed")
     private List<TaskerReview> taskerReviewList;
 
-    @ManyToMany(cascade = ALL)
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "tasker_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
-    private List<Skill> skills;
+//    @ManyToMany(cascade = ALL)
+    @Enumerated(EnumType.STRING)
+    private List<WorkType> skills;
 
 }
