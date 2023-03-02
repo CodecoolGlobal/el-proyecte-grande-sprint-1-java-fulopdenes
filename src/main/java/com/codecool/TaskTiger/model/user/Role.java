@@ -12,7 +12,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "Role")
+@Entity(name = "roles")
 public class Role {
     @Id
     @SequenceGenerator(

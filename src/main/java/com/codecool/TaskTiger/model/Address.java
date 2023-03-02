@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
-@Entity
+@Entity(name = "Addresses")
 @NoArgsConstructor
 @Data
 @Builder
@@ -20,6 +20,7 @@ public class Address {
     @GeneratedValue(strategy = SEQUENCE,
             generator = "address_sequence"
     )
+    @Column(name = "address_id", updatable = false)
     private Long id;
     @Column(name = "country", nullable = false)
     private String country;

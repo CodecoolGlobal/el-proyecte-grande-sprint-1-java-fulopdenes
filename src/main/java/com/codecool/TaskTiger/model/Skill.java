@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "Skills")
 @NoArgsConstructor
 @Data
 @Builder
@@ -15,10 +15,13 @@ public class Skill {
     @Id
     @SequenceGenerator(sequenceName = "skill_sequence", name= "skill_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skill_sequence")
+    @Column(name = "skill_id")
     private Long id;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "skill_worktype")
+    @Column(name = "worktype")
     private WorkType worktype;
-    @Column(columnDefinition = "TEXT")
+
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 }

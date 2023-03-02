@@ -3,6 +3,7 @@ package com.codecool.TaskTiger.model;
 import com.codecool.TaskTiger.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,10 +14,11 @@ import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.EnumType.STRING;
 
 
-@Entity
+@Entity(name = "Reservations")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Reservation {
 
     @Id
@@ -26,27 +28,32 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "reservationId_sequence")
     @Column(name = "reservation_id", updatable = false)
-    private long id;
-    @Column(name = "reservation_createdDate", nullable = false)
+    private Long id;
+
+    @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_user_id")
     private User client;
+
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "tasker_id")
+    @JoinColumn(name = "tasker_user_id")
     private User tasker;
 
-
-    @Column(name = "reservation_desc")
+    @Column(name = "description")
     private String description;
+
     @Enumerated(STRING)
-    @Column(name = "reservation_worktype")
+    @Column(name = "worktype")
     private WorkType workType;
-    @Column(name = "reservation_status")
+
+    @Column(name = "status")
     private ReservationStatus reservationStatus;
+
     @OneToOne(cascade = ALL)
     private Address address;
+
     @OneToMany(mappedBy = "reservation", cascade = ALL)
     private List<Message> messageList;
 

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
-@Entity(name = "Message")
+@Entity(name = "Messages")
 @NoArgsConstructor
 @Data
 @Builder
@@ -24,17 +24,23 @@ public class Message {
             sequenceName = "message_sequence")
     @GeneratedValue(strategy = SEQUENCE,
             generator = "message_sequence")
+    @Column(name = "message_id", updatable = false)
     private Long id;
+
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "sender_id", nullable = false, updatable = false)
+    @JoinColumn(name = "sender_user_id", nullable = false, updatable = false)
     private User sender;
+
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "receiver_id", nullable = false, updatable = false)
+    @JoinColumn(name = "receiver_user_id", nullable = false, updatable = false)
     private User receiver;
-    @Column(name = "message_date", nullable = false, updatable = false)
+
+    @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
-    @Column(name = "message_text", columnDefinition = "TEXT")
+
+    @Column(name = "message", columnDefinition = "TEXT")
     private String message;
+
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;

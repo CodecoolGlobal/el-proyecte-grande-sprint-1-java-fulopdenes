@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.model.user;
 
 
+import com.codecool.TaskTiger.model.Skill;
 import com.codecool.TaskTiger.model.TaskerReview;
 import com.codecool.TaskTiger.model.TimeSlot;
 import jakarta.persistence.*;
@@ -10,14 +11,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
 
 
 @Data
-@Entity(name = "TaskerInfo")
+@Entity(name = "taskerInfo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -28,11 +28,12 @@ public class TaskerInfo {
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "taskerInfo_sequence")
-    @Column(name = "taskerInfoId", updatable = false)
+    @Column(name = "tasker_info_id", updatable = false)
     @Id
-    private long Id;
+    private Long Id;
 
-    @OneToOne()
+    @OneToOne
+    @JoinColumn(name = "tasker_user_id")
     private User user;
 
     @OneToMany(cascade = ALL, mappedBy = "tasker")
@@ -41,5 +42,11 @@ public class TaskerInfo {
     @OneToMany(cascade = ALL, mappedBy = "reviewed")
     private List<TaskerReview> taskerReviewList;
 
+    @ManyToMany(cascade = ALL)
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "tasker_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    private List<Skill> skills;
 
 }

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.CascadeType.ALL;
 
-@Entity(name = "ClientReview")
+@Entity(name = "ClientReviews")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,11 +20,11 @@ public class ClientReview {
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "clientReview_sequence")
-    @Column(name = "clientReview_id", updatable = false)
+    @Column(name = "client_review_id", updatable = false)
     private Long id;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "client_user_id")
     private User reviewedUser;
 
     @Column(name = "review_value")

@@ -22,11 +22,6 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @Entity(name = "Users")
 public class User {
-    @Column(
-            name = "user_registrationDate",
-            updatable = false
-    )
-    LocalDateTime registrationDate = LocalDateTime.now();
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -42,78 +37,100 @@ public class User {
             updatable = false
     )
     private Long id;
+
     @Column(
-            name = "user_username",
+            name = "username",
             nullable = false,
-            //unique = true,
+            unique = true,
             updatable = false
     )
     private String username;
+
     @Column(
-            name = "user_firstName",
+            name = "firstName",
             nullable = false
     )
     private String firstName;
+
     @Column(
-            name = "user_lastName",
+            name = "lastName",
             nullable = false
     )
     private String lastName;
+
     @Column(
-            name = "user_dob",
+            name = "dob",
             nullable = false
     )
     private LocalDate dob;
+
     @Enumerated(STRING)
     @Column(
-            name = "user_gender"
+            name = "gender"
     )
     private Gender gender;
+
     @Column(
-            name = "user_introduction",
+            name = "introduction",
             columnDefinition = "TEXT"
     )
     private String introduction;
+
     @Column(
-            name = "user_email",
+            name = "email",
             unique = true,
             nullable = false
     )
     private String email;
+
     @Column(
-            name = "user_phone",
+            name = "phone",
             unique = true
     )
     private String phoneNumber;
+
     @Column(
-            name = "user_isBanned"
+            name = "isBanned"
     )
     private boolean isBanned = false;
+
     @Column(
-            name = "user_isActivated"
+            name = "isActivated"
     )
     private boolean isActivated = false;
+
     @Column(
-            name = "user_password"
+            name = "password"
     )
     private String password;
+
     @Column(
-            name = "user_activationDate",
+            name = "activation_date",
             updatable = false
     )
     private LocalDateTime activationDate;
+
     @OneToMany(
             cascade = ALL,
             mappedBy = "reviewedUser")
     private List<ClientReview> reviews;
+
     @OneToMany(
             cascade = ALL,
             mappedBy = "client"
     )
     private List<Reservation> reservations;
+
     @ManyToOne
+    @JoinColumn(name = "user_role_id")
     private Role role;
 
-    @OneToOne()
+    @OneToOne(cascade = ALL)
     private TaskerInfo taskerInfo;
+
+    @Column(
+            name = "user_registration_date",
+            updatable = false
+    )
+    LocalDateTime registrationDate = LocalDateTime.now();
 }
