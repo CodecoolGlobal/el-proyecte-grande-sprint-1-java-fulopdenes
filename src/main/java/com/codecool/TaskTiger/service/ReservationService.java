@@ -17,12 +17,10 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
 
-    private final TimeSlotRepository timeSlotRepository;
 
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository, TimeSlotRepository timeSlotRepository) {
+    public ReservationService(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
-        this.timeSlotRepository = timeSlotRepository;
     }
 
 
@@ -42,20 +40,19 @@ public class ReservationService {
     public ReservationDTO getReservationById(Long id) {
         Reservation r = reservationRepository.findById(id).orElseThrow();
         return new ReservationDTO(r.getCreatedDate(), r.getClient(), r.getTasker(), r.getDescription(),
-                r.getWorkType(), r.getReservationStatus(), r.getAddress(), r.getMessageList(),
-                timeSlotRepository.findAllByReservation_Id(id));
+                r.getWorkType(), r.getReservationStatus(), r.getAddress(), r.getMessageList());
     }
 
     public List<ReservationDTO> getReservationsByClientId(Long id) {
         return reservationRepository.findAllByClient_Id(id).stream().map(r -> new ReservationDTO(r.getCreatedDate(),
                 r.getClient(), r.getTasker(), r.getDescription(), r.getWorkType(), r.getReservationStatus(),
-                r.getAddress(), r.getMessageList(), timeSlotRepository.findAllByReservation_Id(r.getId()))).toList();
+                r.getAddress(), r.getMessageList())).toList();
     }
 
     public List<ReservationDTO> getReservationsByTaskerId(Long id) {
         return reservationRepository.findAllByTasker_Id(id).stream().map(r -> new ReservationDTO(r.getCreatedDate(),
                 r.getClient(), r.getTasker(), r.getDescription(), r.getWorkType(), r.getReservationStatus(),
-                r.getAddress(), r.getMessageList(), timeSlotRepository.findAllByReservation_Id(r.getId()))).toList();
+                r.getAddress(), r.getMessageList())).toList();
     }
     public boolean saveMessage(MessageDTO messageDTO, Long id) {
         Reservation reservation = reservationRepository.findById(id).orElseThrow();
