@@ -19,7 +19,6 @@ public record UserDTO(
         String phoneNumber,
         String password,
         Boolean isTasker,
-        TaskerInfo taskerInfo,
         LocalDateTime registrationDateTime,
         Gender gender,
         Role role,
@@ -28,6 +27,7 @@ public record UserDTO(
         LocalDateTime activationDate,
         Boolean isActivated,
         String shortIntroduction,
-        Boolean isBanned
+        Boolean isBanned,
+        TaskerInfo taskerInfo
 ) {
 }
