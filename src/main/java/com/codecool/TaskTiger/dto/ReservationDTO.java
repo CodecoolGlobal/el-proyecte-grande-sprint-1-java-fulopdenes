@@ -1,4 +1,12 @@
 package com.codecool.TaskTiger.dto;
 
-public record ReservationDTO() {
+import com.codecool.TaskTiger.model.*;
+import com.codecool.TaskTiger.model.user.User;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record ReservationDTO(LocalDateTime createdDate, User client, User tasker, String description,
+                             WorkType workType, ReservationStatus reservationStatus, Address address,
+                             List<Message> messageList, List<TimeSlot> timeSlotList) {
 }
