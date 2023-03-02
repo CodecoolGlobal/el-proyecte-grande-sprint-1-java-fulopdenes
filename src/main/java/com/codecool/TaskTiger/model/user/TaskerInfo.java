@@ -1,24 +1,21 @@
 package com.codecool.TaskTiger.model.user;
 
 
-import com.codecool.TaskTiger.model.Skill;
 import com.codecool.TaskTiger.model.TaskerReview;
 import com.codecool.TaskTiger.model.TimeSlot;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.codecool.TaskTiger.model.WorkType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
 
 
-@Data
+@Getter
+@Setter
 @Entity(name = "taskerInfo")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,14 +35,14 @@ public class TaskerInfo {
     @OneToOne()
     @JoinColumn(name = "tasker_user_id", nullable = false)
     private User user;
-
+    @JsonManagedReference
     @OneToMany(cascade = ALL, mappedBy = "tasker")
     private List<TimeSlot> timeSlotList;
 
     @OneToMany(cascade = ALL, mappedBy = "reviewed")
     private List<TaskerReview> taskerReviewList;
 
-//    @ManyToMany(cascade = ALL)
+    //    @ManyToMany(cascade = ALL)
     @Enumerated(EnumType.STRING)
     private List<WorkType> skills;
 

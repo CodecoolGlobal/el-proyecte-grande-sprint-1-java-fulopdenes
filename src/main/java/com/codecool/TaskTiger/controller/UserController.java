@@ -45,6 +45,7 @@ public class UserController {
 
     @PutMapping("/timeSlot/{id}")
     public boolean saveTimeSlots(@PathVariable Long id, @RequestBody List<TimeSlot> timeSlotList){
+
         return userService.saveTimeSlots(timeSlotList, id);
     }
 

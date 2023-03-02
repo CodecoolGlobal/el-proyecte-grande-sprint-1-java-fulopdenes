@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -64,10 +65,11 @@ public class UserService {
 
         return newUserSaved.getId();
     }
-    public boolean saveTimeSlots(List<TimeSlot> timeSlotList, Long id){
+    public boolean saveTimeSlots(List<TimeSlot> timeSlotList, Long id) {
         User tasker = userRepository.getUserById(id);
-        tasker.getTaskerInfo().getTimeSlotList().addAll(timeSlotList);
-        return  true;
+        TaskerInfo taskerInfo = tasker.getTaskerInfo();
+        timeSlotList.forEach(timeSlot -> timeSlot.setTasker(taskerInfo));
+        return true;
     }
 
     public User saveTaskerInfo(TaskerInfo taskerInfo, Long id){
@@ -77,5 +79,12 @@ public class UserService {
         return userRepository.save(tasker);
     }
 
+    public User getByUserNameAndPassword(String userName, String password){
+        return userRepository.getUserByUsernameAndPassword(userName, password);
+    }
 
+    public List<User> filterUserByWorkType(WorkType workType){
+    return userRepository.findAll().stream().filter(User::isTasker).filter(user -> user.getTaskerInfo()
+        .getSkills().contains(workType)).collect(Collectors.toList());
+    }
 }

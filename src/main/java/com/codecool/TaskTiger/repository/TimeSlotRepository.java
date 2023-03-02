@@ -11,5 +11,5 @@ import java.util.List;
 public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
 
 
-    List<TimeSlot> findAllByReservation_Id(Long id);
+
 }

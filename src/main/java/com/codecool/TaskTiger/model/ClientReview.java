@@ -3,6 +3,7 @@ package com.codecool.TaskTiger.model;
 import com.codecool.TaskTiger.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import static jakarta.persistence.CascadeType.ALL;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class ClientReview {
 
     @Id
