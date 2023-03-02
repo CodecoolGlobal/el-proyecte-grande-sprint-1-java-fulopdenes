@@ -37,7 +37,7 @@ public class Reservation {
     @JoinColumn(name = "tasker_id")
     private User tasker;
 
-    private List<TimeSlot> reservationTimeFrame;
+
     @Column(name = "reservation_desc")
     private String description;
     @Enumerated(STRING)
@@ -45,7 +45,7 @@ public class Reservation {
     private WorkType workType;
     @Column(name = "reservation_status")
     private ReservationStatus reservationStatus;
-    @OneToOne(mappedBy = "", cascade = ALL)
+    @OneToOne(cascade = ALL)
     private Address address;
     @OneToMany(mappedBy = "reservation", cascade = ALL)
     private List<Message> messageList;

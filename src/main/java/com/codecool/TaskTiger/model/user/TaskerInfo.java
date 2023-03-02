@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ManyToAny;
+
 
 
 import java.util.List;
@@ -31,10 +31,14 @@ public class TaskerInfo {
     @Column(name = "taskerInfoId", updatable = false)
     @Id
     private long Id;
+
+    @OneToOne()
+    private User user;
+
     @OneToMany(cascade = ALL, mappedBy = "tasker")
     private List<TimeSlot> timeSlotList;
 
-    @OneToMany(cascade = ALL, mappedBy = "user")
+    @OneToMany(cascade = ALL, mappedBy = "reviewed")
     private List<TaskerReview> taskerReviewList;
 
 

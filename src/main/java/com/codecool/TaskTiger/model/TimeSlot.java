@@ -24,18 +24,21 @@ public class TimeSlot {
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "timeSlot_sequence")
-    @Column(name = "timeSlotId", updatable = false)
     @Id
-    private long id;
+    private Long id;
 
-    @Column
+@Column(name="timeslot_from")
     private LocalDateTime from;
 
-    @Column
+    @Column(name="timeslot_to")
     private LocalDateTime to;
 
-    @Column
+    @Column(name="timeslot_isreserved")
     private boolean isReserved;
+
+    @ManyToOne(cascade = ALL)
+    @JoinColumn(name="reservation_id")
+    private Reservation reservation;
 
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "tasker_id")

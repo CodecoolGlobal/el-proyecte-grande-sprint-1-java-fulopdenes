@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Skill {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(sequenceName = "skill_sequence", name= "skill_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skill_sequence")
     private Long id;
     @Enumerated(EnumType.STRING)
+    @Column(name = "skill_worktype")
     private WorkType worktype;
     @Column(columnDefinition = "TEXT")
     private String description;

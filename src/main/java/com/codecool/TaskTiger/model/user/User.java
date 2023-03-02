@@ -8,10 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
@@ -24,6 +22,11 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @Entity(name = "Users")
 public class User {
+    @Column(
+            name = "user_registrationDate",
+            updatable = false
+    )
+    LocalDateTime registrationDate = LocalDateTime.now();
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -83,11 +86,6 @@ public class User {
     )
     private String phoneNumber;
     @Column(
-            name = "user_registrationDate",
-            updatable = false
-    )
-    LocalDateTime registrationDate = LocalDateTime.now();
-    @Column(
             name = "user_isBanned"
     )
     private boolean isBanned = false;
@@ -115,4 +113,7 @@ public class User {
     private List<Reservation> reservations;
     @ManyToOne
     private Role role;
+
+    @OneToOne()
+    private TaskerInfo taskerInfo;
 }
