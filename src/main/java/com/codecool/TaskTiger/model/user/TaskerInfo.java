@@ -4,6 +4,7 @@ package com.codecool.TaskTiger.model.user;
 import com.codecool.TaskTiger.model.Skill;
 import com.codecool.TaskTiger.model.TaskerReview;
 import com.codecool.TaskTiger.model.TimeSlot;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +33,8 @@ public class TaskerInfo {
     @Id
     private Long Id;
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne()
     @JoinColumn(name = "tasker_user_id", nullable = false)
     private User user;
 

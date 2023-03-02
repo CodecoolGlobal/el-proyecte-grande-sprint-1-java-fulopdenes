@@ -52,7 +52,7 @@ public class Reservation {
     private ReservationStatus reservationStatus;
 
     @OneToOne(cascade = ALL)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
     @OneToMany(mappedBy = "reservation", cascade = ALL)
