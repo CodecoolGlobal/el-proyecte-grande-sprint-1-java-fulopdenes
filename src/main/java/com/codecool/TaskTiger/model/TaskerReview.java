@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 import static jakarta.persistence.CascadeType.ALL;
 
-@Entity(name = "TaskerReviews")
+@Entity(name = "TaskerReview")
 @NoArgsConstructor
 @Data
 @Builder

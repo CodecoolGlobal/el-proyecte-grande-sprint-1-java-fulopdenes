@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.CascadeType.ALL;
 
-@Entity(name = "ClientReviews")
+@Entity(name = "ClientReview")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
