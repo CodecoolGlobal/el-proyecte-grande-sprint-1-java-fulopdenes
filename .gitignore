@@ -4,8 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### Local.App.Properties ###
-src/main/resources/application.properties
+### env ###
+env.properties
 
 ### STS ###
 .apt_generated
