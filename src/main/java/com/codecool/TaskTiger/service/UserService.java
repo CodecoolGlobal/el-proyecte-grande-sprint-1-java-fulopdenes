@@ -1,7 +1,6 @@
 package com.codecool.TaskTiger.service;
 
-import com.codecool.TaskTiger.dto.NewUserDTO;
-import com.codecool.TaskTiger.dto.UserDTO;
+
 import com.codecool.TaskTiger.dto.UserMapper;
 import com.codecool.TaskTiger.model.user.User;
 import com.codecool.TaskTiger.repository.UserRepository;

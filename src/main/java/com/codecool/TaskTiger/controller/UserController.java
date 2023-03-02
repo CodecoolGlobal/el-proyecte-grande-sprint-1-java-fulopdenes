@@ -1,7 +1,6 @@
 package com.codecool.TaskTiger.controller;
 
-import com.codecool.TaskTiger.dto.NewUserDTO;
-import com.codecool.TaskTiger.dto.UserDTO;
+
 import com.codecool.TaskTiger.model.user.User;
 import com.codecool.TaskTiger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

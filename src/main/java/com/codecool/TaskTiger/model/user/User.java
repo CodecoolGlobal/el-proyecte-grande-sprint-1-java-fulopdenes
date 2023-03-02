@@ -131,6 +131,7 @@ public class User {
     private TaskerInfo taskerInfo;
 
     @Column(
+
             name = "registration_date",
             updatable = false
     )
