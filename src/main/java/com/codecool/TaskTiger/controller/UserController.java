@@ -1,5 +1,6 @@
 package com.codecool.TaskTiger.controller;
 
+
 import com.codecool.TaskTiger.model.user.User;
 import com.codecool.TaskTiger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,20 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @GetMapping("/all")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
+//    @PostMapping("/register")
+//    public Long userRegistration(@RequestBody UserDTO userDTO){
+//        return userService.saveUser(userDTO);
+//    }
+    @PostMapping("/register")
+    public Long registerNewUser(@RequestBody User newUser){
+        return userService.saveUser(newUser);
+    }
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable int id){
+    public User getUserById(@PathVariable Long id){
         return userService.getUserById(id);
     }
 
