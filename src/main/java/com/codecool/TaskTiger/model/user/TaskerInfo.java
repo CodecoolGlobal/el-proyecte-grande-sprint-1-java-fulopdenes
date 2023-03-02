@@ -33,7 +33,7 @@ public class TaskerInfo {
     private Long Id;
 
     @OneToOne
-    @JoinColumn(name = "tasker_user_id")
+    @JoinColumn(name = "tasker_user_id", nullable = false)
     private User user;
 
     @OneToMany(cascade = ALL, mappedBy = "tasker")

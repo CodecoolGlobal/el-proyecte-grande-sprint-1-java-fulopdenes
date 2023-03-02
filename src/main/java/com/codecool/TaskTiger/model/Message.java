@@ -38,7 +38,7 @@ public class Message {
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
-    @Column(name = "message", columnDefinition = "TEXT")
+    @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
     @ManyToOne(cascade = ALL)

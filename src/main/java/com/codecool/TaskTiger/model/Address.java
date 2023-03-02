@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
-@Entity(name = "Addresses")
+@Entity(name = "Address")
 @NoArgsConstructor
 @Data
 @Builder

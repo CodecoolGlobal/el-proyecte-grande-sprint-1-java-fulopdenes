@@ -25,16 +25,16 @@ public class TimeSlot {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "timeslot_sequence")
     @Id
-    @Column(name = "timeslot_id")
+    @Column(name = "timeslot_id", nullable = false)
     private Long id;
 
-@Column(name="start_time")
+@Column(name="start_time", nullable = false)
     private LocalDateTime startTime;
 
-    @Column(name="end_time")
+    @Column(name="end_time", nullable = false)
     private LocalDateTime endTime;
 
-    @Column(name="is_reserved")
+    @Column(name="is_reserved", nullable = false)
     private boolean isReserved;
 
     @ManyToOne(cascade = ALL)
@@ -42,6 +42,6 @@ public class TimeSlot {
     private Reservation reservation;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "tasker_user_id")
+    @JoinColumn(name = "tasker_user_id", nullable = false)
     private TaskerInfo tasker;
 }

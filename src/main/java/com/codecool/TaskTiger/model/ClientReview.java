@@ -24,13 +24,13 @@ public class ClientReview {
     private Long id;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "client_user_id")
+    @JoinColumn(name = "client_user_id", updatable = false, nullable = false)
     private User reviewedUser;
 
-    @Column(name = "review_value")
+    @Column(name = "review_value", nullable = false)
     private int reviewValue;
 
-    @Column(name = "review_desc")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
 }

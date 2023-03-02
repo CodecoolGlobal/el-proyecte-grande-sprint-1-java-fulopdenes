@@ -25,17 +25,17 @@ public class TaskerReview {
     private Long id;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "reviewed_user_id")
+    @JoinColumn(name = "reviewed_user_id", nullable = false, updatable = false)
     private TaskerInfo reviewed;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "reviewer_user_id")
+    @JoinColumn(name = "reviewer_user_id", nullable = false, updatable = false)
     private User reviewer;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
-    @Column(name = "review_value")
+    @Column(name = "review_value", nullable = false)
     private int reviewValue;
 
     @Enumerated(EnumType.STRING)

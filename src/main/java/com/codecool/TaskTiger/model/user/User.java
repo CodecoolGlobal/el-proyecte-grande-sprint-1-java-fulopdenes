@@ -92,15 +92,16 @@ public class User {
     @Column(
             name = "isBanned"
     )
-    private boolean isBanned = false;
+    private boolean isBanned;
 
     @Column(
             name = "isActivated"
     )
-    private boolean isActivated = false;
+    private boolean isActivated;
 
     @Column(
-            name = "password"
+            name = "password",
+            nullable = false
     )
     private String password;
 
@@ -126,11 +127,15 @@ public class User {
     private Role role;
 
     @OneToOne(cascade = ALL)
+    @JoinColumn(name = "tasker_info_id")
     private TaskerInfo taskerInfo;
 
     @Column(
-            name = "user_registration_date",
+            name = "registration_date",
             updatable = false
     )
-    LocalDateTime registrationDate = LocalDateTime.now();
+    LocalDateTime registrationDate;
+
+    @Column(name = "is_tasker", nullable = false)
+    private boolean isTasker;
 }

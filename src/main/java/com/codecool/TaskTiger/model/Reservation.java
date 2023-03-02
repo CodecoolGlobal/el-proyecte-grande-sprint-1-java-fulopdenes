@@ -30,15 +30,15 @@ public class Reservation {
     @Column(name = "reservation_id", updatable = false)
     private Long id;
 
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "client_user_id")
+    @JoinColumn(name = "client_user_id", nullable = false, updatable = false)
     private User client;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "tasker_user_id")
+    @JoinColumn(name = "tasker_user_id", nullable = false, updatable = false)
     private User tasker;
 
     @Column(name = "description")
@@ -48,10 +48,11 @@ public class Reservation {
     @Column(name = "worktype")
     private WorkType workType;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private ReservationStatus reservationStatus;
 
     @OneToOne(cascade = ALL)
+    @JoinColumn(nullable = false)
     private Address address;
 
     @OneToMany(mappedBy = "reservation", cascade = ALL)
