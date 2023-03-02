@@ -71,10 +71,10 @@ public class User {
     private Gender gender;
 
     @Column(
-            name = "introduction",
+            name = "shortIntroduction",
             columnDefinition = "TEXT"
     )
-    private String introduction;
+    private String shortIntroduction;
 
     @Column(
             name = "email",
@@ -84,7 +84,7 @@ public class User {
     private String email;
 
     @Column(
-            name = "phone",
+            name = "phoneNumber",
             unique = true
     )
     private String phoneNumber;
@@ -109,7 +109,7 @@ public class User {
             name = "activation_date",
             updatable = false
     )
-    private LocalDateTime activationDate;
+    private LocalDateTime activationDateTime;
 
     @OneToMany(
             cascade = ALL,
