@@ -34,12 +34,12 @@ public class Reservation {
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
-    @ManyToOne(cascade =  CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnore
     @JoinColumn(name = "client_user_id", nullable = false, updatable = false)
     private User client;
 
-    @ManyToOne(cascade =  CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnore
     @JoinColumn(name = "tasker_user_id", nullable = false, updatable = false)
     private User tasker;
@@ -55,9 +55,11 @@ public class Reservation {
     @Enumerated(STRING)
     private ReservationStatus reservationStatus;
 
-    @OneToOne(cascade = ALL)
-    @JoinColumn(name = "address_id", nullable = false)
-    private Address address;
+    //    @OneToOne(cascade = ALL)
+//    @JoinColumn(name = "address_id", nullable = false)
+//    private Address address;
+    @Column(name = "address", nullable = false)
+    private String address;
 
     @OneToMany(mappedBy = "reservation", cascade = ALL)
     private List<Message> messageList;

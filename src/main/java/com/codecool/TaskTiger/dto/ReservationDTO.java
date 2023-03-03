@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public record ReservationDTO(LocalDateTime createdDate, User client, User tasker, String description,
-                             WorkType workType, ReservationStatus reservationStatus, Address address,
+                             WorkType workType, ReservationStatus reservationStatus, String address,
                              List<Message> messageList) {
     @Builder public ReservationDTO{}
 }

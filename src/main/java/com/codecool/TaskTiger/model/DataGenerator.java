@@ -92,6 +92,12 @@ public class DataGenerator {
         LocalDateTime createdDate = LocalDateTime.now();
         String description = "Random description";
         ;
+        String country = COUNTRIES[RANDOM.nextInt(COUNTRIES.length)];
+        String zipcode = ZIPCODES[RANDOM.nextInt(ZIPCODES.length)];
+        String county = COUNTIES[RANDOM.nextInt(COUNTIES.length)];
+        String city = CITIES[RANDOM.nextInt(CITIES.length)];
+        String street = STREETS[RANDOM.nextInt(STREETS.length)];
+        int streetNumber = RANDOM.nextInt(100) + 1;
         ReservationStatus reservationStatus = ReservationStatus.PENDING;
 
         return Reservation.builder()
@@ -101,7 +107,7 @@ public class DataGenerator {
                 .description(description)
                 .workType(workType)
                 .reservationStatus(reservationStatus)
-                .address(address)
+                .address(country + " "+ zipcode + " " + county + " " + city + " " + street + " " + streetNumber)
                 .build();
     }
 
