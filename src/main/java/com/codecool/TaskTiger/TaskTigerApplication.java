@@ -11,7 +11,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 
@@ -38,7 +37,7 @@ public class TaskTigerApplication {
             User savedUser = userRepository.save(user);
 
             TaskerInfo taskerInfo = TaskerInfo.builder()
-                    .user(savedUser).skills(feriTypes)
+                    .user(savedUser).skills(feriTypes).hourlyWage(10.0)
                     .build();
             savedUser.setTaskerInfo(taskerInfo);
             userRepository.save(savedUser);
@@ -54,7 +53,7 @@ public class TaskTigerApplication {
             User savedUser2 = userRepository.save(user2);
             TaskerInfo taskerInfo2 = TaskerInfo.builder()
                     .user(savedUser2)
-                    .skills(mariTypes)
+                    .skills(mariTypes).hourlyWage(10.0)
                     .build();
             savedUser2.setTaskerInfo(taskerInfo2);
             userRepository.save(savedUser2);
@@ -69,7 +68,7 @@ public class TaskTigerApplication {
             User savedUser3 = userRepository.save(user3);
             TaskerInfo taskerInfo3 = TaskerInfo.builder()
                     .user(savedUser3)
-                    .skills(feriTypes)
+                    .skills(feriTypes).hourlyWage(10.0)
                     .build();
             savedUser3.setTaskerInfo(taskerInfo3);
             userRepository.save(savedUser3);
@@ -85,7 +84,7 @@ public class TaskTigerApplication {
             User savedUser4 = userRepository.save(user4);
             TaskerInfo taskerInfo4 = TaskerInfo.builder()
                     .user(savedUser4)
-                    .skills(tecaTypes)
+                    .skills(tecaTypes).hourlyWage(12.0)
                     .build();
             savedUser4.setTaskerInfo(taskerInfo4);
             userRepository.save(savedUser4);
@@ -100,7 +99,7 @@ public class TaskTigerApplication {
             User savedUser5 = userRepository.save(user5);
             TaskerInfo taskerInfo5 = TaskerInfo.builder()
                     .user(savedUser5)
-                    .skills(gyuriTypes)
+                    .skills(gyuriTypes).hourlyWage(17.0)
                     .build();
             savedUser5.setTaskerInfo(taskerInfo5);
             userRepository.save(savedUser5);
@@ -116,7 +115,7 @@ public class TaskTigerApplication {
             User mariSaved = userRepository.save(mari);
             TaskerInfo mariTaskerInfo = TaskerInfo.builder()
                     .user(mariSaved)
-                    .skills(mariTypes)
+                    .skills(mariTypes).hourlyWage(22.0)
                     .build();
             mariSaved.setTaskerInfo(mariTaskerInfo);
             userRepository.save(mariSaved);
@@ -131,7 +130,7 @@ public class TaskTigerApplication {
             User tecaSaved = userRepository.save(teca);
             TaskerInfo tecaTaskerInfo = TaskerInfo.builder()
                     .user(tecaSaved)
-                    .skills(tecaTypes)
+                    .skills(tecaTypes).hourlyWage(11.0)
                     .build();
             tecaSaved.setTaskerInfo(tecaTaskerInfo);
             userRepository.save(tecaSaved);
@@ -145,7 +144,7 @@ public class TaskTigerApplication {
             User gyuriSaved = userRepository.save(gyuri);
             TaskerInfo gyuriTaskerInfo = TaskerInfo.builder()
                     .user(gyuriSaved)
-                    .skills(gyuriTypes)
+                    .skills(gyuriTypes).hourlyWage(15.0)
                     .build();
             gyuriSaved.setTaskerInfo(gyuriTaskerInfo);
             userRepository.save(gyuriSaved);
@@ -159,7 +158,7 @@ public class TaskTigerApplication {
             User siyarSaved = userRepository.save(siyar);
             TaskerInfo siyarTaskerInfo = TaskerInfo.builder()
                     .user(siyarSaved)
-                    .skills(siyarTypes)
+                    .skills(siyarTypes).hourlyWage(20.0)
                     .build();
             siyarSaved.setTaskerInfo(siyarTaskerInfo);
             userRepository.save(siyarSaved);
@@ -169,11 +168,14 @@ public class TaskTigerApplication {
                 timeSlot.setTasker(taskerUser8.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
-//            User zsolt = DataGenerator.generateRandomUser("zsolti", "Zsolt", "Béka");
-//            User savedZsolt = userRepository.save(zsolt); // save the entity and get the saved object with generated id
-//            Address address = DataGenerator.generateRandomAddress();;
-//            Reservation reservation = DataGenerator.generateRandomReservation(savedZsolt, siyar, address, WorkType.HELP_MOVING);
-//            reservationRepository.save(reservation);
+            User zsolt = DataGenerator.generateRandomUser("zsolti", "Zsolt", "Béka");
+            User savedZsolt = userRepository.save(zsolt);
+
+            Address address = DataGenerator.generateRandomAddress();
+
+            Reservation reservation = DataGenerator.generateRandomReservation(savedZsolt, siyar, address,
+                    WorkType.HELP_MOVING);
+            reservationRepository.save(reservation);
         };
 
 

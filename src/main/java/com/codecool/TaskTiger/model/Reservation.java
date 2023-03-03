@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.model;
 
 import com.codecool.TaskTiger.model.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,11 +34,13 @@ public class Reservation {
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade =  CascadeType.MERGE)
+    @JsonIgnore
     @JoinColumn(name = "client_user_id", nullable = false, updatable = false)
     private User client;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade =  CascadeType.MERGE)
+    @JsonIgnore
     @JoinColumn(name = "tasker_user_id", nullable = false, updatable = false)
     private User tasker;
 
@@ -49,6 +52,7 @@ public class Reservation {
     private WorkType workType;
 
     @Column(name = "status", nullable = false)
+    @Enumerated(STRING)
     private ReservationStatus reservationStatus;
 
     @OneToOne(cascade = ALL)

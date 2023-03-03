@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.MERGE;
 
 @Entity(name = "ClientReview")
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public class ClientReview {
     @Column(name = "client_review_id", updatable = false)
     private Long id;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "client_user_id", updatable = false, nullable = false)
     private User reviewedUser;
 

@@ -39,6 +39,7 @@ public class TaskerInfo {
     @OneToMany(cascade = ALL, mappedBy = "tasker")
     private List<TimeSlot> timeSlotList;
 
+    private Double hourlyWage;
     @OneToMany(cascade = ALL, mappedBy = "reviewed")
     private List<TaskerReview> taskerReviewList;
 

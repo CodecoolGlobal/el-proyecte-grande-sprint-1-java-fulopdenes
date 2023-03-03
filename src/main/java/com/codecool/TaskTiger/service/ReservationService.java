@@ -6,7 +6,7 @@ import com.codecool.TaskTiger.model.Message;
 import com.codecool.TaskTiger.model.Reservation;
 import com.codecool.TaskTiger.model.ReservationStatus;
 import com.codecool.TaskTiger.repository.ReservationRepository;
-import com.codecool.TaskTiger.repository.TimeSlotRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

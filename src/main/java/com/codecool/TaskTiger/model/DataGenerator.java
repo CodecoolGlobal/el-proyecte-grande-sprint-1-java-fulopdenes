@@ -25,6 +25,7 @@ public class DataGenerator {
                 .firstName(firstName)
                 .lastName(lastName)
                 .phoneNumber(generateRandomPhoneNumber())
+                .isActivated(true)
                 .dob(generateRandomLocalDate(1980, 2002))
                 .email(generateRandomString(8) + "@example.com")
                 .isTasker(true)

@@ -35,6 +35,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> getAllTaskers(){return userRepository.findAll().stream()
+            .filter(User::isTasker).collect(Collectors.toList());}
+
     public User getUserByUserId(Long id) {
         return userRepository.getUserById(id);
     }

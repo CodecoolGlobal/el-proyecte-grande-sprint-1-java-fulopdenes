@@ -2,6 +2,8 @@ package com.codecool.TaskTiger.model.user;
 
 import com.codecool.TaskTiger.model.ClientReview;
 import com.codecool.TaskTiger.model.Reservation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -116,9 +118,10 @@ public class User {
     private List<ClientReview> reviews;
 
     @OneToMany(
-            cascade = ALL,
+            cascade =  CascadeType.MERGE,
             mappedBy = "client"
     )
+  @JsonManagedReference
     private List<Reservation> reservations;
 
     @ManyToOne

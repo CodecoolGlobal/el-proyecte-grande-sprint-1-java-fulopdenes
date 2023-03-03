@@ -40,7 +40,8 @@ public class TimeSlot {
     @Column(name = "is_reserved", nullable = false)
     private boolean isReserved;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade = MERGE)
+    @JsonIgnore
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 

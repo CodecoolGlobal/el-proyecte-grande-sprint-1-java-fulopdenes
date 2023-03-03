@@ -27,6 +27,15 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+
+    @GetMapping("/tasker/all")
+    public List<User> getAllTasker(){
+        System.out.println("retek");
+        return userService.getAllTaskers();
+    }
+
+
+
     @PostMapping("/register")
     public Long registerNewUser(@RequestBody NewUserDTO newUser){
         return userService.saveUser(newUser);
