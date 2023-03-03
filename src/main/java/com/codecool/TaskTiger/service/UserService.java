@@ -35,8 +35,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> getAllTaskers(){return userRepository.findAll().stream()
-            .filter(User::isTasker).collect(Collectors.toList());}
+    public List<User> getAllTaskers() {
+        List<User> taskers = new ArrayList<>();
+        for (User user : userRepository.findAll()) {
+            if (user.isTasker()) {
+                taskers.add(user);
+            }
+        }
+        return taskers;
+    }
 
     public User getUserByUserId(Long id) {
         return userRepository.getUserById(id);
@@ -87,8 +94,9 @@ public class UserService {
         return userRepository.getUserByUsernameAndPassword(loginDTO.userName(), loginDTO.password());
     }
 
-    public List<User> filterUserByWorkType(WorkType workType){
+    public List<User> filterUserByWorkType(String workType){
+    WorkType workType1 = WorkType.valueOf(workType.toUpperCase());
     return userRepository.findAll().stream().filter(User::isTasker).filter(user -> user.getTaskerInfo()
-        .getSkills().contains(workType)).collect(Collectors.toList());
+        .getSkills().contains(workType1)).collect(Collectors.toList());
     }
 }

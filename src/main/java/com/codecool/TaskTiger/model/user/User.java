@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.MERGE;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -128,7 +129,7 @@ public class User {
     @JoinColumn(name = "user_role_id")
     private Role role;
 
-    @OneToOne(cascade = ALL)
+    @OneToOne(cascade = MERGE)
     @JoinColumn(name = "tasker_info_id")
     private TaskerInfo taskerInfo;
 

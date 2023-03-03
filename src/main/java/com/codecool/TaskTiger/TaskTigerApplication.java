@@ -169,10 +169,9 @@ public class TaskTigerApplication {
                 timeSlotRepository.save(timeSlot);
             }
             User zsolt = DataGenerator.generateRandomUser("zsolti", "Zsolt", "Béka");
+            zsolt.setTasker(false);
             User savedZsolt = userRepository.save(zsolt);
-
             Address address = DataGenerator.generateRandomAddress();
-
             Reservation reservation = DataGenerator.generateRandomReservation(savedZsolt, siyar, address,
                     WorkType.HELP_MOVING);
             reservationRepository.save(reservation);
