@@ -1,22 +1,20 @@
 package com.codecool.TaskTiger.model.user;
 
 
-import com.codecool.TaskTiger.model.Skill;
 import com.codecool.TaskTiger.model.TaskerReview;
 import com.codecool.TaskTiger.model.TimeSlot;
+import com.codecool.TaskTiger.model.WorkType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
 
 
-@Data
+@Getter
+@Setter
 @Entity(name = "taskerInfo")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,21 +30,19 @@ public class TaskerInfo {
     @Id
     private Long Id;
 
-    @OneToOne
-    @JoinColumn(name = "tasker_user_id", nullable = false)
-    private User user;
+    @Column(name = "skill_info", columnDefinition = "TEXT")
+    private String skillInfo;
 
+    @JsonManagedReference
     @OneToMany(cascade = ALL, mappedBy = "tasker")
     private List<TimeSlot> timeSlotList;
 
+    private Double hourlyWage;
     @OneToMany(cascade = ALL, mappedBy = "reviewed")
     private List<TaskerReview> taskerReviewList;
 
-    @ManyToMany(cascade = ALL)
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "tasker_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
-    private List<Skill> skills;
+    //    @ManyToMany(cascade = ALL)
+    @Enumerated(EnumType.STRING)
+    private List<WorkType> skills;
 
 }

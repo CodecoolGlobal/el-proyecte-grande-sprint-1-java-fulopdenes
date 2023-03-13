@@ -2,21 +2,23 @@ package com.codecool.TaskTiger.model.user;
 
 import com.codecool.TaskTiger.model.ClientReview;
 import com.codecool.TaskTiger.model.Reservation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.MERGE;
 import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -71,10 +73,10 @@ public class User {
     private Gender gender;
 
     @Column(
-            name = "introduction",
+            name = "shortIntroduction",
             columnDefinition = "TEXT"
     )
-    private String introduction;
+    private String shortIntroduction;
 
     @Column(
             name = "email",
@@ -84,7 +86,7 @@ public class User {
     private String email;
 
     @Column(
-            name = "phone",
+            name = "phoneNumber",
             unique = true
     )
     private String phoneNumber;
@@ -109,7 +111,7 @@ public class User {
             name = "activation_date",
             updatable = false
     )
-    private LocalDateTime activationDate;
+    private LocalDateTime activationDateTime;
 
     @OneToMany(
             cascade = ALL,
@@ -117,20 +119,22 @@ public class User {
     private List<ClientReview> reviews;
 
     @OneToMany(
-            cascade = ALL,
+            cascade =  CascadeType.MERGE,
             mappedBy = "client"
     )
+  @JsonManagedReference
     private List<Reservation> reservations;
 
     @ManyToOne
     @JoinColumn(name = "user_role_id")
     private Role role;
 
-    @OneToOne(cascade = ALL)
+    @OneToOne(cascade = MERGE)
     @JoinColumn(name = "tasker_info_id")
     private TaskerInfo taskerInfo;
 
     @Column(
+
             name = "registration_date",
             updatable = false
     )

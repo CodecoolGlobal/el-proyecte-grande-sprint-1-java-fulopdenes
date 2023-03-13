@@ -3,15 +3,18 @@ package com.codecool.TaskTiger.model;
 import com.codecool.TaskTiger.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.MERGE;
 
 @Entity(name = "ClientReview")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class ClientReview {
 
     @Id
@@ -23,7 +26,7 @@ public class ClientReview {
     @Column(name = "client_review_id", updatable = false)
     private Long id;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "client_user_id", updatable = false, nullable = false)
     private User reviewedUser;
 
