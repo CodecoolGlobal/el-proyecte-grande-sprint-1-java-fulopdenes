@@ -1,7 +1,6 @@
 package com.codecool.TaskTiger.model;
 
-import com.codecool.TaskTiger.model.user.TaskerInfo;
-import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.model.user.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,11 +28,11 @@ public class Message {
 
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "sender_user_id", nullable = false, updatable = false)
-    private User sender;
+    private AppUser sender;
 
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "receiver_user_id", nullable = false, updatable = false)
-    private User receiver;
+    private AppUser receiver;
 
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;

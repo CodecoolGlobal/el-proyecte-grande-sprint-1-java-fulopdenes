@@ -1,6 +1,6 @@
 package com.codecool.TaskTiger.model;
 
-import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.model.user.AppUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,12 +37,12 @@ public class Reservation {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnore
     @JoinColumn(name = "client_user_id", nullable = false, updatable = false)
-    private User client;
+    private AppUser client;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnore
     @JoinColumn(name = "tasker_user_id", nullable = false, updatable = false)
-    private User tasker;
+    private AppUser tasker;
 
     @Column(name = "description")
     private String description;

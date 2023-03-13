@@ -4,15 +4,13 @@ package com.codecool.TaskTiger.controller;
 import com.codecool.TaskTiger.dto.LoginDTO;
 import com.codecool.TaskTiger.dto.NewUserDTO;
 import com.codecool.TaskTiger.model.TimeSlot;
-import com.codecool.TaskTiger.model.WorkType;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
-import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.WeakHashMap;
 
 @RestController
 @RequestMapping("users")
@@ -25,13 +23,13 @@ public class UserController {
         this.userService = userService;
     }
     @GetMapping("/all")
-    public List<User> getAllUsers(){
+    public List<AppUser> getAllUsers(){
         return userService.getAllUsers();
     }
 
 
     @GetMapping("/tasker/all")
-    public List<User> getAllTasker(){
+    public List<AppUser> getAllTasker(){
 
         return userService.getAllTaskers();
     }
@@ -45,13 +43,13 @@ public class UserController {
 
 
     @PutMapping("/taskerInfo/{id}")
-    public User addTaskerInfo(@PathVariable Long id, @RequestBody TaskerInfo taskerInfo){
+    public AppUser addTaskerInfo(@PathVariable Long id, @RequestBody TaskerInfo taskerInfo){
         return userService.saveTaskerInfo(taskerInfo, id);
     }
 
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id){
+    public AppUser getUserById(@PathVariable Long id){
         return userService.getUserByUserId(id);
     }
 
@@ -61,13 +59,13 @@ public class UserController {
         return userService.saveTimeSlots(timeSlotList, id);
     }
 
-    @PostMapping("/login")
-    public User getUserByNameAndPassword(@RequestBody LoginDTO loginDTO){
-        return userService.getByUserNameAndPassword(loginDTO);
-    }
+//    @PostMapping("/login")
+//    public AppUser getUserByNameAndPassword(@RequestBody LoginDTO loginDTO){
+//        return userService.getByUserNameAndPassword(loginDTO);
+//    }
 
     @GetMapping("/worktype/{worktype}")
-    public List<User> getUsersByWorkType(@PathVariable String worktype){
+    public List<AppUser> getUsersByWorkType(@PathVariable String worktype){
 
         return userService.filterUserByWorkType(worktype);
     }

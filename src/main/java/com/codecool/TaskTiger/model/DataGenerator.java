@@ -2,25 +2,27 @@ package com.codecool.TaskTiger.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 
 import com.codecool.TaskTiger.model.user.Gender;
-import com.codecool.TaskTiger.model.user.TaskerInfo;
-import com.codecool.TaskTiger.model.user.User;
-import com.codecool.TaskTiger.model.WorkType;
+import com.codecool.TaskTiger.model.user.AppUser;
+import com.codecool.TaskTiger.security.PasswordConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataGenerator {
 
 
+    private static PasswordConfig passwordConfig = new PasswordConfig();
+
+
+
     private static final Random RANDOM = new Random();
 
-    public static User generateRandomUser(String userName, String firstName, String lastName) {
-        return User.builder()
+    public static AppUser generateRandomUser(String userName, String firstName, String lastName) {
+        return AppUser.builder()
                 .username(userName)
                 .firstName(firstName)
                 .lastName(lastName)
@@ -29,12 +31,15 @@ public class DataGenerator {
                 .dob(generateRandomLocalDate(1980, 2002))
                 .email(generateRandomString(8) + "@example.com")
                 .isTasker(true)
-                .password(generateRandomString(10))
+                .password(passwordConfig.passwordEncoder().encode("password"))
                 .registrationDate(LocalDateTime.now())
                 .shortIntroduction("Hi! I'm a new user at TaskTiger.")
                 .gender(Gender.values()[RANDOM.nextInt(Gender.values().length)])
                 .build();
     }
+
+//                    .password(passwordConfig.passwordEncoder().encode(generateRandomString(10)))
+
 
 
     private static String generateRandomString(int length) {
@@ -45,16 +50,15 @@ public class DataGenerator {
         }
         return sb.toString();
     }
-    public static TimeSlot generateRandomTimeSlot(User user) {
+    public static TimeSlot generateRandomTimeSlot(AppUser appUser) {
         LocalDateTime startTime = LocalDateTime.now().plusDays(RANDOM.nextInt(13)).plusHours(RANDOM.nextInt(24));
         LocalDateTime endTime = startTime.plusHours(RANDOM.nextInt(24));
         boolean isReserved = RANDOM.nextBoolean();
-        System.out.println(user);
         return TimeSlot.builder()
                 .startTime(startTime)
                 .endTime(endTime)
                 .isReserved(isReserved)
-                .tasker(user.getTaskerInfo())
+                .tasker(appUser.getTaskerInfo())
                 .build();
     }
     private static final String[] COUNTRIES = {"Hungary", "USA", "Germany", "France", "UK"};
@@ -88,7 +92,7 @@ public class DataGenerator {
     }
 
 
-    public static Reservation generateRandomReservation(User client, User tasker, Address address, WorkType workType) {
+    public static Reservation generateRandomReservation(AppUser client, AppUser tasker, Address address, WorkType workType) {
         LocalDateTime createdDate = LocalDateTime.now();
         String description = "Random description";
         ;

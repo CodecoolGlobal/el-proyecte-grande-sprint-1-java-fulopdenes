@@ -2,7 +2,6 @@ package com.codecool.TaskTiger.model.user;
 
 import com.codecool.TaskTiger.model.ClientReview;
 import com.codecool.TaskTiger.model.Reservation;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +13,6 @@ import java.util.List;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.CascadeType.MERGE;
 import static jakarta.persistence.EnumType.STRING;
-import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Getter
@@ -23,7 +21,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Builder
 @Entity(name = "Users")
-public class User {
+public class AppUser {
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -115,7 +113,7 @@ public class User {
 
     @OneToMany(
             cascade = ALL,
-            mappedBy = "reviewedUser")
+            mappedBy = "reviewedAppUser")
     private List<ClientReview> reviews;
 
     @OneToMany(
@@ -125,7 +123,7 @@ public class User {
   @JsonManagedReference
     private List<Reservation> reservations;
 
-    @ManyToOne
+    @ManyToOne(cascade = ALL)
     @JoinColumn(name = "user_role_id")
     private Role role;
 

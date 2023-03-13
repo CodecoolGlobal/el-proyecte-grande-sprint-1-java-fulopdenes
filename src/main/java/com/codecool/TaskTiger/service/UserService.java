@@ -7,7 +7,7 @@ import com.codecool.TaskTiger.model.user.Gender;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.model.TimeSlot;
 import com.codecool.TaskTiger.model.WorkType;
-import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,26 +27,26 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
+    public List<AppUser> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public List<User> getAllTaskers() {
-        List<User> taskers = new ArrayList<>();
-        for (User user : userRepository.findAll()) {
-            if (user.isTasker()) {
-                taskers.add(user);
+    public List<AppUser> getAllTaskers() {
+        List<AppUser> taskers = new ArrayList<>();
+        for (AppUser appUser : userRepository.findAll()) {
+            if (appUser.isTasker()) {
+                taskers.add(appUser);
             }
         }
         return taskers;
     }
 
-    public User getUserByUserId(Long id) {
+    public AppUser getUserByUserId(Long id) {
         return userRepository.getUserById(id);
     }
 
     public Long saveUser(NewUserDTO newUserDTO) {
-        User newUser = User.builder()
+        AppUser newAppUser = AppUser.builder()
                 .username(newUserDTO.username())
                 .firstName(newUserDTO.firstName())
                 .lastName(newUserDTO.lastName())
@@ -60,37 +60,37 @@ public class UserService {
                 .gender(Gender.valueOf(newUserDTO.gender()))
                 .build();
 
-        User newUserSaved = userRepository.save(newUser);
+        AppUser newAppUserSaved = userRepository.save(newAppUser);
 
         if (newUserDTO.isTasker()) {
             TaskerInfo taskerInfo = TaskerInfo.builder()
                     .build();
-            newUserSaved.setTaskerInfo(taskerInfo);
-            userRepository.save(newUserSaved);
+            newAppUserSaved.setTaskerInfo(taskerInfo);
+            userRepository.save(newAppUserSaved);
         }
 
-        return newUserSaved.getId();
+        return newAppUserSaved.getId();
     }
     public boolean saveTimeSlots(List<TimeSlot> timeSlotList, Long id) {
-        User tasker = userRepository.getUserById(id);
+        AppUser tasker = userRepository.getUserById(id);
         TaskerInfo taskerInfo = tasker.getTaskerInfo();
         timeSlotList.forEach(timeSlot -> timeSlot.setTasker(taskerInfo));
         return true;
     }
 
-    public User saveTaskerInfo(TaskerInfo taskerInfo, Long id){
-        User tasker = userRepository.getUserById(id);
+    public AppUser saveTaskerInfo(TaskerInfo taskerInfo, Long id){
+        AppUser tasker = userRepository.getUserById(id);
         tasker.setTaskerInfo(taskerInfo);
         return userRepository.save(tasker);
     }
 
-    public User getByUserNameAndPassword(LoginDTO loginDTO){
+    public AppUser getByUserNameAndPassword(LoginDTO loginDTO){
         return userRepository.getUserByUsernameAndPassword(loginDTO.userName(), loginDTO.password());
     }
 
-    public List<User> filterUserByWorkType(String workType){
+    public List<AppUser> filterUserByWorkType(String workType){
     WorkType workType1 = WorkType.valueOf(workType.toUpperCase());
-    return userRepository.findAll().stream().filter(User::isTasker).filter(user -> user.getTaskerInfo()
+    return userRepository.findAll().stream().filter(AppUser::isTasker).filter(user -> user.getTaskerInfo()
         .getSkills().contains(workType1)).collect(Collectors.toList());
     }
 }

@@ -1,8 +1,9 @@
 package com.codecool.TaskTiger;
 
 import com.codecool.TaskTiger.model.*;
+import com.codecool.TaskTiger.model.user.Role;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
-import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.repository.ReservationRepository;
 import com.codecool.TaskTiger.repository.TimeSlotRepository;
 import com.codecool.TaskTiger.repository.UserRepository;
@@ -33,136 +34,139 @@ public class TaskTigerApplication {
         return (args) -> {
 //
 
-            User user = DataGenerator.generateRandomUser("mari123", "Mária", "Kovács");
-            User savedUser = userRepository.save(user);
+            AppUser appUser = DataGenerator.generateRandomUser("mari123", "Mária", "Kovács");
+            AppUser savedAppUser = userRepository.save(appUser);
 
             TaskerInfo taskerInfo = TaskerInfo.builder()
                     .skills(feriTypes).hourlyWage(10.0)
                     .build();
-            savedUser.setTaskerInfo(taskerInfo);
-            userRepository.save(savedUser);
-            User taskerUser = userRepository.getUserById(savedUser.getId());
+            savedAppUser.setTaskerInfo(taskerInfo);
+            userRepository.save(savedAppUser);
+            AppUser taskerAppUser = userRepository.getUserById(savedAppUser.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser);
-                timeSlot.setTasker(taskerUser.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser);
+                timeSlot.setTasker(taskerAppUser.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
 
             // Second user
-            User user2 = DataGenerator.generateRandomUser("julia89", "Júlia", "Nagy");
-            User savedUser2 = userRepository.save(user2);
+            AppUser appUser2 = DataGenerator.generateRandomUser("julia89", "Júlia", "Nagy");
+            AppUser savedAppUser2 = userRepository.save(appUser2);
             TaskerInfo taskerInfo2 = TaskerInfo.builder()
                     .skills(mariTypes).hourlyWage(10.0)
                     .build();
-            savedUser2.setTaskerInfo(taskerInfo2);
-            userRepository.save(savedUser2);
-            User taskerUser1 = userRepository.getUserById(savedUser2.getId());
+            savedAppUser2.setTaskerInfo(taskerInfo2);
+            userRepository.save(savedAppUser2);
+            AppUser taskerAppUser1 = userRepository.getUserById(savedAppUser2.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser1);
-                timeSlot.setTasker(taskerUser1.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser1);
+                timeSlot.setTasker(taskerAppUser1.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
 // Third user
-            User user3 = DataGenerator.generateRandomUser("david00", "Dávid", "Tóth");
-            User savedUser3 = userRepository.save(user3);
+            AppUser appUser3 = DataGenerator.generateRandomUser("david00", "Dávid", "Tóth");
+            AppUser savedAppUser3 = userRepository.save(appUser3);
             TaskerInfo taskerInfo3 = TaskerInfo.builder()
                     .skills(feriTypes).hourlyWage(10.0)
                     .build();
-            savedUser3.setTaskerInfo(taskerInfo3);
-            userRepository.save(savedUser3);
-            User taskerUser2 = userRepository.getUserById(savedUser3.getId());
+            savedAppUser3.setTaskerInfo(taskerInfo3);
+            userRepository.save(savedAppUser3);
+            AppUser taskerAppUser2 = userRepository.getUserById(savedAppUser3.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser2);
-                timeSlot.setTasker(taskerUser2.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser2);
+                timeSlot.setTasker(taskerAppUser2.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
 
 // Fourth user
-            User user4 = DataGenerator.generateRandomUser("zsuzsa32", "Zsuzsanna", "Balogh");
-            User savedUser4 = userRepository.save(user4);
+            AppUser appUser4 = DataGenerator.generateRandomUser("zsuzsa32", "Zsuzsanna", "Balogh");
+            AppUser savedAppUser4 = userRepository.save(appUser4);
             TaskerInfo taskerInfo4 = TaskerInfo.builder()
                     .skills(tecaTypes).hourlyWage(12.0)
                     .build();
-            savedUser4.setTaskerInfo(taskerInfo4);
-            userRepository.save(savedUser4);
-            User taskerUser3 = userRepository.getUserById(savedUser4.getId());
+            savedAppUser4.setTaskerInfo(taskerInfo4);
+            userRepository.save(savedAppUser4);
+            AppUser taskerAppUser3 = userRepository.getUserById(savedAppUser4.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser3);
-                timeSlot.setTasker(taskerUser3.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser3);
+                timeSlot.setTasker(taskerAppUser3.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
 // Fifth user
-            User user5 = DataGenerator.generateRandomUser("krisztian77", "Krisztián", "Varga");
-            User savedUser5 = userRepository.save(user5);
+            AppUser appUser5 = DataGenerator.generateRandomUser("krisztian77", "Krisztián", "Varga");
+            AppUser savedAppUser5 = userRepository.save(appUser5);
             TaskerInfo taskerInfo5 = TaskerInfo.builder()
                     .skills(gyuriTypes).hourlyWage(17.0)
                     .build();
-            savedUser5.setTaskerInfo(taskerInfo5);
-            userRepository.save(savedUser5);
-            User taskerUser4 = userRepository.getUserById(savedUser5.getId());
+            savedAppUser5.setTaskerInfo(taskerInfo5);
+            userRepository.save(savedAppUser5);
+            AppUser taskerAppUser4 = userRepository.getUserById(savedAppUser5.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser4);
-                timeSlot.setTasker(taskerUser4.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser4);
+                timeSlot.setTasker(taskerAppUser4.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
 
 
-            User mari = DataGenerator.generateRandomUser("dénes5567", "Dénes", "Fülöp");
-            User mariSaved = userRepository.save(mari);
+            AppUser mari = DataGenerator.generateRandomUser("dénes5567", "Dénes", "Fülöp");
+            AppUser mariSaved = userRepository.save(mari);
             TaskerInfo mariTaskerInfo = TaskerInfo.builder()
                     .skills(mariTypes).hourlyWage(22.0)
                     .build();
             mariSaved.setTaskerInfo(mariTaskerInfo);
             userRepository.save(mariSaved);
 
-            User taskerUser5 = userRepository.getUserById(mariSaved.getId());
+            AppUser taskerAppUser5 = userRepository.getUserById(mariSaved.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser5);
-                timeSlot.setTasker(taskerUser5.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser5);
+                timeSlot.setTasker(taskerAppUser5.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
-            User teca = DataGenerator.generateRandomUser("teca123", "Teca", "Kiss");
-            User tecaSaved = userRepository.save(teca);
+            AppUser teca = DataGenerator.generateRandomUser("teca123", "Teca", "Kiss");
+            AppUser tecaSaved = userRepository.save(teca);
             TaskerInfo tecaTaskerInfo = TaskerInfo.builder()
                     .skills(tecaTypes).hourlyWage(11.0)
                     .build();
             tecaSaved.setTaskerInfo(tecaTaskerInfo);
             userRepository.save(tecaSaved);
-            User taskerUser6 = userRepository.getUserById(tecaSaved.getId());
+            AppUser taskerAppUser6 = userRepository.getUserById(tecaSaved.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser6);
-                timeSlot.setTasker(taskerUser6.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser6);
+                timeSlot.setTasker(taskerAppUser6.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
-            User gyuri = DataGenerator.generateRandomUser("gyuri123", "Gyuri", "Kovács");
-            User gyuriSaved = userRepository.save(gyuri);
+            AppUser gyuri = DataGenerator.generateRandomUser("gyuri123", "Gyuri", "Kovács");
+            AppUser gyuriSaved = userRepository.save(gyuri);
             TaskerInfo gyuriTaskerInfo = TaskerInfo.builder()
                     .skills(gyuriTypes).hourlyWage(15.0)
                     .build();
             gyuriSaved.setTaskerInfo(gyuriTaskerInfo);
             userRepository.save(gyuriSaved);
-            User taskerUser7 = userRepository.getUserById(gyuriSaved.getId());
+            AppUser taskerAppUser7 = userRepository.getUserById(gyuriSaved.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser7);
-                timeSlot.setTasker(taskerUser7.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser7);
+                timeSlot.setTasker(taskerAppUser7.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
-            User siyar = DataGenerator.generateRandomUser("siyar123", "Siyar", "Ahmad");
-            User siyarSaved = userRepository.save(siyar);
+            AppUser siyar = DataGenerator.generateRandomUser("siyar123", "Siyar", "Ahmad");
+            Role role = Role.builder().name("USER").build();
+            siyar.setRole(role);
+            AppUser siyarSaved = userRepository.save(siyar);
             TaskerInfo siyarTaskerInfo = TaskerInfo.builder()
                     .skills(siyarTypes).hourlyWage(20.0)
                     .build();
             siyarSaved.setTaskerInfo(siyarTaskerInfo);
             userRepository.save(siyarSaved);
-            User taskerUser8 = userRepository.getUserById(siyarSaved.getId());
+
+            AppUser taskerAppUser8 = userRepository.getUserById(siyarSaved.getId());
             for (int i = 0; i < 30; i++) {
-                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerUser8);
-                timeSlot.setTasker(taskerUser8.getTaskerInfo());
+                TimeSlot timeSlot = DataGenerator.generateRandomTimeSlot(taskerAppUser8);
+                timeSlot.setTasker(taskerAppUser8.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
             }
-            User zsolt = DataGenerator.generateRandomUser("zsolti", "Zsolt", "Béka");
+            AppUser zsolt = DataGenerator.generateRandomUser("zsolti", "Zsolt", "Béka");
             zsolt.setTasker(false);
-            User savedZsolt = userRepository.save(zsolt);
+            AppUser savedZsolt = userRepository.save(zsolt);
             Address address = DataGenerator.generateRandomAddress();
             Reservation reservation = DataGenerator.generateRandomReservation(savedZsolt, siyar, address,
                     WorkType.HELP_MOVING);
