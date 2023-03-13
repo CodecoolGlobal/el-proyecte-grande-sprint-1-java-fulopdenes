@@ -22,7 +22,7 @@ public class TaskTigerApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner2(UserRepository userRepository, DataGenerator dataGenerator,
+    CommandLineRunner commandLineRunner2(UserRepository userRepository,
                                          TimeSlotRepository timeSlotRepository, ReservationRepository reservationRepository) {
         List<WorkType> feriTypes = List.of(WorkType.CLEANING, WorkType.GARDENING);
         List<WorkType> mariTypes = List.of(WorkType.DOG_WALKING, WorkType.GARDENING);
@@ -37,7 +37,7 @@ public class TaskTigerApplication {
             User savedUser = userRepository.save(user);
 
             TaskerInfo taskerInfo = TaskerInfo.builder()
-                    .user(savedUser).skills(feriTypes).hourlyWage(10.0)
+                    .skills(feriTypes).hourlyWage(10.0)
                     .build();
             savedUser.setTaskerInfo(taskerInfo);
             userRepository.save(savedUser);
@@ -52,7 +52,6 @@ public class TaskTigerApplication {
             User user2 = DataGenerator.generateRandomUser("julia89", "Júlia", "Nagy");
             User savedUser2 = userRepository.save(user2);
             TaskerInfo taskerInfo2 = TaskerInfo.builder()
-                    .user(savedUser2)
                     .skills(mariTypes).hourlyWage(10.0)
                     .build();
             savedUser2.setTaskerInfo(taskerInfo2);
@@ -67,7 +66,6 @@ public class TaskTigerApplication {
             User user3 = DataGenerator.generateRandomUser("david00", "Dávid", "Tóth");
             User savedUser3 = userRepository.save(user3);
             TaskerInfo taskerInfo3 = TaskerInfo.builder()
-                    .user(savedUser3)
                     .skills(feriTypes).hourlyWage(10.0)
                     .build();
             savedUser3.setTaskerInfo(taskerInfo3);
@@ -83,7 +81,6 @@ public class TaskTigerApplication {
             User user4 = DataGenerator.generateRandomUser("zsuzsa32", "Zsuzsanna", "Balogh");
             User savedUser4 = userRepository.save(user4);
             TaskerInfo taskerInfo4 = TaskerInfo.builder()
-                    .user(savedUser4)
                     .skills(tecaTypes).hourlyWage(12.0)
                     .build();
             savedUser4.setTaskerInfo(taskerInfo4);
@@ -98,7 +95,6 @@ public class TaskTigerApplication {
             User user5 = DataGenerator.generateRandomUser("krisztian77", "Krisztián", "Varga");
             User savedUser5 = userRepository.save(user5);
             TaskerInfo taskerInfo5 = TaskerInfo.builder()
-                    .user(savedUser5)
                     .skills(gyuriTypes).hourlyWage(17.0)
                     .build();
             savedUser5.setTaskerInfo(taskerInfo5);
@@ -114,7 +110,6 @@ public class TaskTigerApplication {
             User mari = DataGenerator.generateRandomUser("dénes5567", "Dénes", "Fülöp");
             User mariSaved = userRepository.save(mari);
             TaskerInfo mariTaskerInfo = TaskerInfo.builder()
-                    .user(mariSaved)
                     .skills(mariTypes).hourlyWage(22.0)
                     .build();
             mariSaved.setTaskerInfo(mariTaskerInfo);
@@ -129,7 +124,6 @@ public class TaskTigerApplication {
             User teca = DataGenerator.generateRandomUser("teca123", "Teca", "Kiss");
             User tecaSaved = userRepository.save(teca);
             TaskerInfo tecaTaskerInfo = TaskerInfo.builder()
-                    .user(tecaSaved)
                     .skills(tecaTypes).hourlyWage(11.0)
                     .build();
             tecaSaved.setTaskerInfo(tecaTaskerInfo);
@@ -143,7 +137,6 @@ public class TaskTigerApplication {
             User gyuri = DataGenerator.generateRandomUser("gyuri123", "Gyuri", "Kovács");
             User gyuriSaved = userRepository.save(gyuri);
             TaskerInfo gyuriTaskerInfo = TaskerInfo.builder()
-                    .user(gyuriSaved)
                     .skills(gyuriTypes).hourlyWage(15.0)
                     .build();
             gyuriSaved.setTaskerInfo(gyuriTaskerInfo);
@@ -157,7 +150,6 @@ public class TaskTigerApplication {
             User siyar = DataGenerator.generateRandomUser("siyar123", "Siyar", "Ahmad");
             User siyarSaved = userRepository.save(siyar);
             TaskerInfo siyarTaskerInfo = TaskerInfo.builder()
-                    .user(siyarSaved)
                     .skills(siyarTypes).hourlyWage(20.0)
                     .build();
             siyarSaved.setTaskerInfo(siyarTaskerInfo);
@@ -180,6 +172,6 @@ public class TaskTigerApplication {
 
     }
 
-};
+}
 
 

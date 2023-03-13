@@ -3,12 +3,10 @@ package com.codecool.TaskTiger.service;
 
 import com.codecool.TaskTiger.dto.LoginDTO;
 import com.codecool.TaskTiger.dto.NewUserDTO;
-import com.codecool.TaskTiger.dto.UserMapper;
 import com.codecool.TaskTiger.model.user.Gender;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.model.TimeSlot;
 import com.codecool.TaskTiger.model.WorkType;
-import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.model.user.User;
 import com.codecool.TaskTiger.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +21,10 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
     }
 
     public List<User> getAllUsers() {
@@ -68,7 +64,6 @@ public class UserService {
 
         if (newUserDTO.isTasker()) {
             TaskerInfo taskerInfo = TaskerInfo.builder()
-                    .user(newUser)
                     .build();
             newUserSaved.setTaskerInfo(taskerInfo);
             userRepository.save(newUserSaved);
@@ -85,7 +80,6 @@ public class UserService {
 
     public User saveTaskerInfo(TaskerInfo taskerInfo, Long id){
         User tasker = userRepository.getUserById(id);
-        taskerInfo.setUser(tasker);
         tasker.setTaskerInfo(taskerInfo);
         return userRepository.save(tasker);
     }
