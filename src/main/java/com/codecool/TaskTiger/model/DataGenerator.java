@@ -1,27 +1,24 @@
 package com.codecool.TaskTiger.model;
 
+import com.codecool.TaskTiger.model.user.AppUser;
+import com.codecool.TaskTiger.model.user.Gender;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-
-import com.codecool.TaskTiger.model.user.Gender;
-import com.codecool.TaskTiger.model.user.AppUser;
-import com.codecool.TaskTiger.security.PasswordConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 @Component
 public class DataGenerator {
 
-
-    private static PasswordConfig passwordConfig = new PasswordConfig();
-
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private static final Random RANDOM = new Random();
 
-    public static AppUser generateRandomUser(String userName, String firstName, String lastName) {
+    public AppUser generateRandomUser(String userName, String firstName, String lastName) {
         return AppUser.builder()
                 .username(userName)
                 .firstName(firstName)
@@ -31,7 +28,7 @@ public class DataGenerator {
                 .dob(generateRandomLocalDate(1980, 2002))
                 .email(generateRandomString(8) + "@example.com")
                 .isTasker(true)
-                .password(passwordConfig.passwordEncoder().encode("password"))
+                .password(passwordEncoder.encode("password"))
                 .registrationDate(LocalDateTime.now())
                 .shortIntroduction("Hi! I'm a new user at TaskTiger.")
                 .gender(Gender.values()[RANDOM.nextInt(Gender.values().length)])
@@ -39,7 +36,6 @@ public class DataGenerator {
     }
 
 //                    .password(passwordConfig.passwordEncoder().encode(generateRandomString(10)))
-
 
 
     private static String generateRandomString(int length) {
@@ -50,7 +46,8 @@ public class DataGenerator {
         }
         return sb.toString();
     }
-    public static TimeSlot generateRandomTimeSlot(AppUser appUser) {
+
+    public TimeSlot generateRandomTimeSlot(AppUser appUser) {
         LocalDateTime startTime = LocalDateTime.now().plusDays(RANDOM.nextInt(13)).plusHours(RANDOM.nextInt(24));
         LocalDateTime endTime = startTime.plusHours(RANDOM.nextInt(24));
         boolean isReserved = RANDOM.nextBoolean();
@@ -61,15 +58,15 @@ public class DataGenerator {
                 .tasker(appUser.getTaskerInfo())
                 .build();
     }
-    private static final String[] COUNTRIES = {"Hungary", "USA", "Germany", "France", "UK"};
-    private static final String[] ZIPCODES = {"1011", "2000", "1234", "5678", "9999"};
-    private static final String[] COUNTIES = {"Budapest", "New York", "Berlin", "Paris", "London"};
-    private static final String[] CITIES = {"Budapest", "New York", "Berlin", "Paris", "London"};
-    private static final String[] STREETS = {"Main Street", "Broadway", "Fifth Avenue", "Champs-Élysées", "Oxford Street"};
+
+    private final String[] COUNTRIES = {"Hungary", "USA", "Germany", "France", "UK"};
+    private final String[] ZIPCODES = {"1011", "2000", "1234", "5678", "9999"};
+    private final String[] COUNTIES = {"Budapest", "New York", "Berlin", "Paris", "London"};
+    private final String[] CITIES = {"Budapest", "New York", "Berlin", "Paris", "London"};
+    private final String[] STREETS = {"Main Street", "Broadway", "Fifth Avenue", "Champs-Élysées", "Oxford Street"};
 
 
-
-    public static Address generateRandomAddress() {
+    public Address generateRandomAddress() {
         String country = COUNTRIES[RANDOM.nextInt(COUNTRIES.length)];
         String zipcode = ZIPCODES[RANDOM.nextInt(ZIPCODES.length)];
         String county = COUNTIES[RANDOM.nextInt(COUNTIES.length)];
@@ -92,7 +89,7 @@ public class DataGenerator {
     }
 
 
-    public static Reservation generateRandomReservation(AppUser client, AppUser tasker, Address address, WorkType workType) {
+    public Reservation generateRandomReservation(AppUser client, AppUser tasker, Address address, WorkType workType) {
         LocalDateTime createdDate = LocalDateTime.now();
         String description = "Random description";
         ;
@@ -111,11 +108,11 @@ public class DataGenerator {
                 .description(description)
                 .workType(workType)
                 .reservationStatus(reservationStatus)
-                .address(country + " "+ zipcode + " " + county + " " + city + " " + street + " " + streetNumber)
+                .address(country + " " + zipcode + " " + county + " " + city + " " + street + " " + streetNumber)
                 .build();
     }
 
-    private static String generateRandomPhoneNumber() {
+    private String generateRandomPhoneNumber() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 11; i++) {
             sb.append(RANDOM.nextInt(10));
@@ -123,7 +120,7 @@ public class DataGenerator {
         return sb.toString();
     }
 
-    private static LocalDate generateRandomLocalDate(int startYear, int endYear) {
+    private LocalDate generateRandomLocalDate(int startYear, int endYear) {
         int year = startYear + RANDOM.nextInt(endYear - startYear + 1);
         int month = 1 + RANDOM.nextInt(12);
         int day = 1 + RANDOM.nextInt(28);
