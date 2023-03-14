@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.security;
 
 import com.codecool.TaskTiger.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,32 +15,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    private UserRepository userRepository;
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .securityMatcher("/users/**")
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/**").permitAll()
-//                        .requestMatchers("/users/**").hasRole("USER")
-//
-//                )
-////                .formLogin()
-////                .defaultSuccessUrl("/")
-////                .permitAll()
-////                .usernameParameter("username")
-////                .passwordParameter("password")
-////                .and()
-//                .userDetailsService(new CustomUserDetailsService(userRepository));
-//
-//        return http.build();
-//    }
+    private final UserRepository userRepository;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

@@ -1,10 +1,11 @@
 package com.codecool.TaskTiger;
 
 import com.codecool.TaskTiger.model.*;
+import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.model.user.Role;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
-import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.repository.ReservationRepository;
+import com.codecool.TaskTiger.repository.RoleRepository;
 import com.codecool.TaskTiger.repository.TimeSlotRepository;
 import com.codecool.TaskTiger.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +24,7 @@ public class TaskTigerApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner2(UserRepository userRepository,
+    CommandLineRunner commandLineRunner2(UserRepository userRepository, RoleRepository roleRepository,
                                          TimeSlotRepository timeSlotRepository, ReservationRepository reservationRepository) {
         List<WorkType> feriTypes = List.of(WorkType.CLEANING, WorkType.GARDENING);
         List<WorkType> mariTypes = List.of(WorkType.DOG_WALKING, WorkType.GARDENING);
@@ -32,11 +33,17 @@ public class TaskTigerApplication {
         List<WorkType> siyarTypes = List.of(WorkType.MINOR_HOME_REPAIRS, WorkType.HELP_MOVING, WorkType.CLEANING);
 
         return (args) -> {
-//
+            Role user = Role.builder().name(Roles.ADMIN).build();
+
+            Role admin = Role.builder().name(Roles.USER).build();
+
+            Role userRole = roleRepository.save(user);
+            Role adminRole = roleRepository.save(admin);
+
 
             AppUser appUser = DataGenerator.generateRandomUser("mari123", "Mária", "Kovács");
             AppUser savedAppUser = userRepository.save(appUser);
-
+            appUser.setRole(userRole);
             TaskerInfo taskerInfo = TaskerInfo.builder()
                     .skills(feriTypes).hourlyWage(10.0)
                     .build();
@@ -52,6 +59,7 @@ public class TaskTigerApplication {
             // Second user
             AppUser appUser2 = DataGenerator.generateRandomUser("julia89", "Júlia", "Nagy");
             AppUser savedAppUser2 = userRepository.save(appUser2);
+            appUser2.setRole(userRole);
             TaskerInfo taskerInfo2 = TaskerInfo.builder()
                     .skills(mariTypes).hourlyWage(10.0)
                     .build();
@@ -66,6 +74,7 @@ public class TaskTigerApplication {
 // Third user
             AppUser appUser3 = DataGenerator.generateRandomUser("david00", "Dávid", "Tóth");
             AppUser savedAppUser3 = userRepository.save(appUser3);
+            appUser3.setRole(userRole);
             TaskerInfo taskerInfo3 = TaskerInfo.builder()
                     .skills(feriTypes).hourlyWage(10.0)
                     .build();
@@ -81,6 +90,7 @@ public class TaskTigerApplication {
 // Fourth user
             AppUser appUser4 = DataGenerator.generateRandomUser("zsuzsa32", "Zsuzsanna", "Balogh");
             AppUser savedAppUser4 = userRepository.save(appUser4);
+            appUser4.setRole(userRole);
             TaskerInfo taskerInfo4 = TaskerInfo.builder()
                     .skills(tecaTypes).hourlyWage(12.0)
                     .build();
@@ -95,6 +105,7 @@ public class TaskTigerApplication {
 // Fifth user
             AppUser appUser5 = DataGenerator.generateRandomUser("krisztian77", "Krisztián", "Varga");
             AppUser savedAppUser5 = userRepository.save(appUser5);
+            appUser5.setRole(userRole);
             TaskerInfo taskerInfo5 = TaskerInfo.builder()
                     .skills(gyuriTypes).hourlyWage(17.0)
                     .build();
@@ -110,6 +121,7 @@ public class TaskTigerApplication {
 
             AppUser mari = DataGenerator.generateRandomUser("dénes5567", "Dénes", "Fülöp");
             AppUser mariSaved = userRepository.save(mari);
+            mari.setRole(userRole);
             TaskerInfo mariTaskerInfo = TaskerInfo.builder()
                     .skills(mariTypes).hourlyWage(22.0)
                     .build();
@@ -124,6 +136,7 @@ public class TaskTigerApplication {
             }
             AppUser teca = DataGenerator.generateRandomUser("teca123", "Teca", "Kiss");
             AppUser tecaSaved = userRepository.save(teca);
+            teca.setRole(userRole);
             TaskerInfo tecaTaskerInfo = TaskerInfo.builder()
                     .skills(tecaTypes).hourlyWage(11.0)
                     .build();
@@ -137,6 +150,7 @@ public class TaskTigerApplication {
             }
             AppUser gyuri = DataGenerator.generateRandomUser("gyuri123", "Gyuri", "Kovács");
             AppUser gyuriSaved = userRepository.save(gyuri);
+            gyuri.setRole(userRole);
             TaskerInfo gyuriTaskerInfo = TaskerInfo.builder()
                     .skills(gyuriTypes).hourlyWage(15.0)
                     .build();
@@ -149,8 +163,8 @@ public class TaskTigerApplication {
                 timeSlotRepository.save(timeSlot);
             }
             AppUser siyar = DataGenerator.generateRandomUser("siyar123", "Siyar", "Ahmad");
-            Role role = Role.builder().name("USER").build();
-            siyar.setRole(role);
+            Role role = Role.builder().name(Roles.USER).build();
+            siyar.setRole(userRole);
             AppUser siyarSaved = userRepository.save(siyar);
             TaskerInfo siyarTaskerInfo = TaskerInfo.builder()
                     .skills(siyarTypes).hourlyWage(20.0)
@@ -166,6 +180,7 @@ public class TaskTigerApplication {
             }
             AppUser zsolt = DataGenerator.generateRandomUser("zsolti", "Zsolt", "Béka");
             zsolt.setTasker(false);
+            zsolt.setRole(adminRole);
             AppUser savedZsolt = userRepository.save(zsolt);
             Address address = DataGenerator.generateRandomAddress();
             Reservation reservation = DataGenerator.generateRandomReservation(savedZsolt, siyar, address,

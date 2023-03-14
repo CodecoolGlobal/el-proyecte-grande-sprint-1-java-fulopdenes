@@ -1,5 +1,6 @@
 package com.codecool.TaskTiger.model.user;
 
+import com.codecool.TaskTiger.model.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,8 +33,9 @@ public class Role {
     @Column(
             name = "role_name",
             nullable = false,
-            updatable = false,
-            unique = true
+            updatable = false
+
     )
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Roles name;
 }
