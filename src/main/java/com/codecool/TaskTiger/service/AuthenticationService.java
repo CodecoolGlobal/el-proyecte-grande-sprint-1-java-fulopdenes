@@ -62,11 +62,11 @@ public class AuthenticationService {
     public String authenticate(LoginDTO loginDTO) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginDTO.userName(),
+                        loginDTO.username(),
                         loginDTO.password()
                 )
         );
-        var user = userRepository.getUserByUsername(loginDTO.userName()).orElseThrow();
+        var user = userRepository.getUserByUsername(loginDTO.username()).orElseThrow();
 
         return jwtService.generateToken(user);
     }
