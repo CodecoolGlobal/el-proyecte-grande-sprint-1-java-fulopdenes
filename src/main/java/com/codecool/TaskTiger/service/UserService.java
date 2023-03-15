@@ -6,6 +6,8 @@ import com.codecool.TaskTiger.model.WorkType;
 import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.repository.UserRepository;
+import com.codecool.TaskTiger.security.jwt.JwtService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, JwtService jwtService) {
         this.userRepository = userRepository;
+        this.jwtService = jwtService;
     }
 
     public List<AppUser> getAllUsers() {
@@ -58,5 +62,11 @@ public class UserService {
         WorkType workType1 = WorkType.valueOf(workType.toUpperCase());
         return userRepository.findAll().stream().filter(AppUser::isTasker).filter(user -> user.getTaskerInfo()
                 .getSkills().contains(workType1)).collect(Collectors.toList());
+    }
+
+    public AppUser getUserFromToken(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        String username = jwtService.extractUserName(token);
+        return userRepository.getUserByUsername(username).orElseThrow();
     }
 }

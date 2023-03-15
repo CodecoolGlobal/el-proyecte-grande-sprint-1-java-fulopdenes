@@ -26,4 +26,5 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(newUserDTO));
     }
 
+
 }

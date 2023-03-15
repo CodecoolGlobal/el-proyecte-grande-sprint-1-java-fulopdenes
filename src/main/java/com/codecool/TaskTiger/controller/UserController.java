@@ -5,6 +5,7 @@ import com.codecool.TaskTiger.model.TimeSlot;
 import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,5 +53,10 @@ public class UserController {
     public List<AppUser> getUsersByWorkType(@PathVariable String worktype) {
 
         return userService.filterUserByWorkType(worktype);
+    }
+
+    @GetMapping("/authenticate")
+    public AppUser getUserFromToken(HttpServletRequest request) {
+        return userService.getUserFromToken(request);
     }
 }
