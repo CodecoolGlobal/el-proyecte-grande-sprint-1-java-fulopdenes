@@ -29,7 +29,6 @@ public class UserController {
 
     @GetMapping("/tasker/all")
     public List<AppUser> getAllTasker() {
-
         return userService.getAllTaskers();
     }
 
@@ -49,14 +48,14 @@ public class UserController {
         return userService.saveTimeSlots(timeSlotList, id);
     }
 
-    @GetMapping("/worktype/{worktype}")
-    public List<AppUser> getUsersByWorkType(@PathVariable String worktype) {
-
-        return userService.filterUserByWorkType(worktype);
+    @PostMapping("/worktype")
+    public List<AppUser> getUsersByWorkType(@RequestBody List<String> worktypes) {
+        return userService.filterUserByWorkType(worktypes);
     }
 
     @GetMapping("/authenticate")
     public AppUser getUserFromToken(HttpServletRequest request) {
         return userService.getUserFromToken(request);
     }
+
 }

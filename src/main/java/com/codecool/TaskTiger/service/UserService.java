@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,10 +59,9 @@ public class UserService {
         return userRepository.save(tasker);
     }
 
-    public List<AppUser> filterUserByWorkType(String workType) {
-        WorkType workType1 = WorkType.valueOf(workType.toUpperCase());
-        return userRepository.findAll().stream().filter(AppUser::isTasker).filter(user -> user.getTaskerInfo()
-                .getSkills().contains(workType1)).collect(Collectors.toList());
+    public List<AppUser> filterUserByWorkType(List<String> workTypes) {
+        return userRepository.findAll().stream().filter(AppUser::isTasker).filter(user -> new HashSet<>(user.getTaskerInfo()
+                .getSkills()).containsAll(workTypes.stream().map(WorkType::valueOf).toList())).collect(Collectors.toList());
     }
 
     public AppUser getUserFromToken(HttpServletRequest request) {
