@@ -32,13 +32,19 @@ public class TimeSlot {
     private Long id;
 
     @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
+    private LocalDateTime start;
 
     @Column(name = "end_time", nullable = false)
-    private LocalDateTime endTime;
+    private LocalDateTime end;
+
+    @Column(name = "text_lable", nullable = false)
+    private String text;
 
     @Column(name = "is_reserved", nullable = false)
     private boolean isReserved;
+
+    @Column(name = "slot_color", nullable = false)
+    private String backColor;
 
     @ManyToOne(cascade = MERGE)
     @JsonIgnore

@@ -51,7 +51,7 @@ public class TaskTigerApplication {
             savedAppUser.setTaskerInfo(taskerInfo);
             userRepository.save(savedAppUser);
             AppUser taskerAppUser = userRepository.getUserById(savedAppUser.getId());
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < 60; i++) {
                 TimeSlot timeSlot = dataGenerator.generateRandomTimeSlot(taskerAppUser);
                 timeSlot.setTasker(taskerAppUser.getTaskerInfo());
                 timeSlotRepository.save(timeSlot);
