@@ -40,8 +40,4 @@ public class Message {
     @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
-    @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
-
 }

@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-public record ReservationDTO(LocalDateTime createdDate, AppUser client, AppUser tasker, String description,
-                             WorkType workType, ReservationStatus reservationStatus, String address,
-                             List<Message> messageList) {
+public record ReservationDTO(Integer client, Integer tasker, String description,
+                             String workType, String address,
+                             String message) {
     @Builder public ReservationDTO{}
 }

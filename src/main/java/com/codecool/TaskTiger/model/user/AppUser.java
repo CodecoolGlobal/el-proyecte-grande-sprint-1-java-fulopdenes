@@ -2,6 +2,7 @@ package com.codecool.TaskTiger.model.user;
 
 import com.codecool.TaskTiger.model.ClientReview;
 import com.codecool.TaskTiger.model.Reservation;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -116,7 +117,7 @@ public class AppUser implements UserDetails {
             cascade = CascadeType.MERGE,
             mappedBy = "client"
     )
-    @JsonManagedReference
+    @JsonManagedReference(value = "client-reservations")
     private List<Reservation> reservations;
     @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "user_role_id")
