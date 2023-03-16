@@ -63,4 +63,9 @@ public class UserController {
         userService.deleteUserById(id);
         return true;
     }
+    @GetMapping("/skills")
+    public List<String>  getUserSkills() {
+        return userService.getUserSkills();
+    }
+
 }
