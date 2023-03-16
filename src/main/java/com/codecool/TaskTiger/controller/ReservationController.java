@@ -3,6 +3,8 @@ package com.codecool.TaskTiger.controller;
 import com.codecool.TaskTiger.dto.MessageDTO;
 import com.codecool.TaskTiger.dto.NewReservationDTO;
 import com.codecool.TaskTiger.dto.ReservationDTO;
+import com.codecool.TaskTiger.dto.StatusDTO;
+import com.codecool.TaskTiger.model.ReservationStatus;
 import com.codecool.TaskTiger.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -63,8 +65,9 @@ public class ReservationController {
         return reservationService.saveMessage(messageDTO, reservationId.longValue());
     }
 
-//    @PutMapping("/modify/{reservationId}")
-//    public boolean modifyReservationStatus(@RequestBody ReservationStatus reservationStatus, @PathVariable Long reservationId) {
-//        return reservationService.modifyReservationStatus(reservationStatus, reservationId);
-//    }
+    @PutMapping("/modify/{reservationId}")
+    public boolean modifyReservationStatus(@RequestBody StatusDTO reservationStatus,
+                                           @PathVariable Integer reservationId) {
+        return reservationService.modifyReservationStatus(reservationId, reservationStatus);
+    }
 }
