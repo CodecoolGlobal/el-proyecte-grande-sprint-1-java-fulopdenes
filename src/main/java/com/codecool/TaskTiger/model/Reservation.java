@@ -1,9 +1,7 @@
 package com.codecool.TaskTiger.model;
 
 import com.codecool.TaskTiger.model.user.AppUser;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
@@ -23,6 +22,9 @@ import static jakarta.persistence.EnumType.STRING;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Reservation {
 
     @Id
@@ -58,13 +60,17 @@ public class Reservation {
     @Enumerated(STRING)
     private ReservationStatus reservationStatus;
 
-    //    @OneToOne(cascade = ALL)
-//    @JoinColumn(name = "address_id", nullable = false)
-//    private Address address;
+
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(cascade = ALL)
-    private List<Message> messageList;
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Message> messageList = new ArrayList<>();
 
+
+    public void addMessage(Message message) {
+        message.setReservation(this);
+        messageList.add(message);
+    }
 }

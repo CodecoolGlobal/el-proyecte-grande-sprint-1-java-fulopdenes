@@ -1,8 +1,10 @@
 package com.codecool.TaskTiger.model.user;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import com.codecool.TaskTiger.model.ClientReview;
 import com.codecool.TaskTiger.model.Reservation;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,6 +28,9 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Builder
 @Entity(name = "Users")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class AppUser implements UserDetails {
     @Column(
 
