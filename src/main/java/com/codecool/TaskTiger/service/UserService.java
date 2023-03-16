@@ -42,6 +42,12 @@ public class UserService {
         return taskers;
     }
 
+    public void deleteUserById(Integer id){
+         userRepository.deleteById(id.longValue());
+    }
+
+
+
     public AppUser getUserByUserId(Long id) {
         return userRepository.getUserById(id);
     }

@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
-import static jakarta.persistence.CascadeType.MERGE;
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -127,7 +126,7 @@ public class AppUser implements UserDetails {
     @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "user_role_id")
     private Role role;
-    @OneToOne(cascade = MERGE)
+    @OneToOne(cascade = {MERGE, REMOVE})
     @JoinColumn(name = "tasker_info_id")
     private TaskerInfo taskerInfo;
     @Column(name = "is_tasker", nullable = false)
