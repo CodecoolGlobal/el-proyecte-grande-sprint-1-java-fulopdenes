@@ -58,4 +58,9 @@ public class UserController {
         return userService.getUserFromToken(request);
     }
 
+    @GetMapping("/skills")
+    public List<String>  getUserSkills() {
+        return userService.getUserSkills();
+    }
+
 }
