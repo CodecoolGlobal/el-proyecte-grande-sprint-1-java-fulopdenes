@@ -47,13 +47,21 @@ public class DataGenerator {
         return sb.toString();
     }
 
+    public String time(LocalDateTime localDateTime) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%d:%02d", localDateTime.getHour(), localDateTime.getMinute()));
+        return sb.toString();
+    }
+
     public TimeSlot generateRandomTimeSlot(AppUser appUser) {
         LocalDateTime startTime =
-                LocalDateTime.of(2023,3,13,10,0).plusDays(RANDOM.nextInt(7)).plusHours(RANDOM.nextInt(24));
-        LocalDateTime endTime = startTime.plusHours(RANDOM.nextInt(1));
+                LocalDateTime.of(2023, 3, 13, 10, 0).plusDays(RANDOM.nextInt(7)).plusHours(RANDOM.nextInt(24));
+        LocalDateTime endTime = startTime.plusHours(1);
         boolean isReserved = RANDOM.nextBoolean();
-        String lable = "T";
-        String backColor = isReserved ? "#6aa84f" : "#cc4125";
+
+        String lable = time(startTime) + "-" + time(endTime);
+
+        String backColor = isReserved ? "" : "#6aa84f";
         return TimeSlot.builder()
                 .start(startTime)
                 .end(endTime)
@@ -97,7 +105,6 @@ public class DataGenerator {
     public Reservation generateRandomReservation(AppUser client, AppUser tasker, Address address, WorkType workType) {
         LocalDateTime createdDate = LocalDateTime.now();
         String description = "Random description";
-        ;
         String country = COUNTRIES[RANDOM.nextInt(COUNTRIES.length)];
         String zipcode = ZIPCODES[RANDOM.nextInt(ZIPCODES.length)];
         String county = COUNTIES[RANDOM.nextInt(COUNTIES.length)];
