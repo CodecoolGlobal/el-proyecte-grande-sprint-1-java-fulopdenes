@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("timeSlots")
+@RequestMapping("timeslots")
 public class TimeSlotController {
 
     private final TimeSlotService timeSlotService;
