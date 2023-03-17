@@ -1,15 +1,26 @@
 package com.codecool.TaskTiger.dto;
 
-import com.codecool.TaskTiger.model.*;
-import com.codecool.TaskTiger.model.user.AppUser;
-import lombok.Builder;
+import com.codecool.TaskTiger.model.ReservationStatus;
+import com.codecool.TaskTiger.model.WorkType;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReservationDTO {
 
-public record ReservationDTO(LocalDateTime createdDate, AppUser client, AppUser tasker, String description,
-                             WorkType workType, ReservationStatus reservationStatus, String address,
-                             List<Message> messageList) {
-    @Builder public ReservationDTO{}
+    private Long id;
+
+    private Long clientId;
+    private Long taskerId;
+    private String description;
+    private WorkType workType;
+    private ReservationStatus reservationStatus;
+    private String address;
+    private List<Long> messageIds;
 }

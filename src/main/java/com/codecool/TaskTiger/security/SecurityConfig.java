@@ -11,6 +11,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.*;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -24,9 +26,10 @@ public class SecurityConfig {
         http
                 .csrf()
                 .disable()
-//                .authorizeHttpRequests()
-//                .requestMatchers("/users/**").hasRole("USER")
-//                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/users/all").hasAuthority("ROLE_ADMIN")
+                .requestMatchers(DELETE, "/users/**").hasAuthority("ROLE_ADMIN")
+                .and()
                 .authorizeHttpRequests()
                 .anyRequest()
                 .permitAll()

@@ -34,9 +34,9 @@ public class TaskTigerApplication {
         List<WorkType> siyarTypes = List.of(WorkType.MINOR_HOME_REPAIRS, WorkType.HELP_MOVING, WorkType.CLEANING);
 
         return (args) -> {
-            Role user = Role.builder().name(Roles.ADMIN).build();
+            Role user = Role.builder().name(Roles.ROLE_USER).build();
 
-            Role admin = Role.builder().name(Roles.USER).build();
+            Role admin = Role.builder().name(Roles.ROLE_ADMIN).build();
 
             Role userRole = roleRepository.save(user);
             Role adminRole = roleRepository.save(admin);
@@ -164,7 +164,6 @@ public class TaskTigerApplication {
                 timeSlotRepository.save(timeSlot);
             }
             AppUser siyar = dataGenerator.generateRandomUser("siyar123", "Siyar", "Ahmad");
-            Role role = Role.builder().name(Roles.USER).build();
             siyar.setRole(userRole);
             AppUser siyarSaved = userRepository.save(siyar);
             TaskerInfo siyarTaskerInfo = TaskerInfo.builder()

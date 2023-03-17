@@ -6,8 +6,8 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 
-public record MessageDTO(AppUser sender, AppUser receiver, LocalDateTime createdDate, String message,
-                         Reservation reservation) {
+public record MessageDTO(Integer senderId, Integer receiverId, LocalDateTime createdDate, String message,
+                         Integer reservationId) {
     @Builder
-    public MessageDTO{}
+    public MessageDTO {}
 }

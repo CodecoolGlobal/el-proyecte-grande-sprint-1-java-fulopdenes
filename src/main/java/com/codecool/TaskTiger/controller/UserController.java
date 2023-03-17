@@ -57,4 +57,14 @@ public class UserController {
         return userService.getUserFromToken(request);
     }
 
+    @DeleteMapping("{id}")
+    public boolean deleteUserByUserId(@PathVariable Integer id) {
+        userService.deleteUserById(id);
+        return true;
+    }
+    @GetMapping("/skills")
+    public List<String>  getUserSkills() {
+        return userService.getUserSkills();
+    }
+
 }

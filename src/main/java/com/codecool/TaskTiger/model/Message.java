@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.model;
 
 import com.codecool.TaskTiger.model.user.AppUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,12 @@ public class Message {
     @Column(name = "message_id", updatable = false)
     private Long id;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id")
+    @JsonBackReference
+    private Reservation reservation;
+
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "sender_user_id", nullable = false, updatable = false)
     private AppUser sender;
@@ -39,9 +46,5 @@ public class Message {
 
     @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
-
-    @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
 
 }

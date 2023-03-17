@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +43,12 @@ public class UserService {
         return taskers;
     }
 
+    public void deleteUserById(Integer id){
+         userRepository.deleteById(id.longValue());
+    }
+
+
+
     public AppUser getUserByUserId(Long id) {
         return userRepository.getUserById(id);
     }
@@ -68,5 +75,9 @@ public class UserService {
         String token = request.getHeader("Authorization").substring(7);
         String username = jwtService.extractUserName(token);
         return userRepository.getUserByUsername(username).orElseThrow();
+    }
+
+    public List<String> getUserSkills() {
+        return Arrays.stream(WorkType.values()).map(Enum::name).collect(Collectors.toList());
     }
 }

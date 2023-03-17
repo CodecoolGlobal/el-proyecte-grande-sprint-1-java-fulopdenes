@@ -1,7 +1,9 @@
 package com.codecool.TaskTiger.model.user;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import com.codecool.TaskTiger.model.ClientReview;
 import com.codecool.TaskTiger.model.Reservation;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,8 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
-import static jakarta.persistence.CascadeType.MERGE;
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -25,6 +26,9 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Builder
 @Entity(name = "Users")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class AppUser implements UserDetails {
     @Column(
 
@@ -116,12 +120,12 @@ public class AppUser implements UserDetails {
             cascade = CascadeType.MERGE,
             mappedBy = "client"
     )
-    @JsonManagedReference
+    @JsonManagedReference(value = "client-reservations")
     private List<Reservation> reservations;
     @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "user_role_id")
     private Role role;
-    @OneToOne(cascade = MERGE)
+    @OneToOne(cascade = {MERGE, REMOVE})
     @JoinColumn(name = "tasker_info_id")
     private TaskerInfo taskerInfo;
     @Column(name = "is_tasker", nullable = false)
@@ -129,7 +133,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.toString()));
+        return List.of(new SimpleGrantedAuthority(role.getName().name()));
     }
 
     @Override
