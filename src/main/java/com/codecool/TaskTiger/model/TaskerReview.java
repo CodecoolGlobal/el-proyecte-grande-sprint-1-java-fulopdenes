@@ -1,7 +1,7 @@
 package com.codecool.TaskTiger.model;
 
 import com.codecool.TaskTiger.model.user.TaskerInfo;
-import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.model.user.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +30,7 @@ public class TaskerReview {
 
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "reviewer_user_id", nullable = false, updatable = false)
-    private User reviewer;
+    private AppUser reviewer;
 
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;

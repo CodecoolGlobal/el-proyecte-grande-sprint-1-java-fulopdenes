@@ -1,7 +1,7 @@
 package com.codecool.TaskTiger.model;
 
-import com.codecool.TaskTiger.model.user.TaskerInfo;
-import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.model.user.AppUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Messages")
@@ -27,22 +27,24 @@ public class Message {
     @Column(name = "message_id", updatable = false)
     private Long id;
 
-    @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "sender_user_id", nullable = false, updatable = false)
-    private User sender;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {REMOVE, MERGE})
+    @JoinColumn(name = "reservation_id")
+    @JsonBackReference
+    private Reservation reservation;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "receiver_user_id", nullable = false, updatable = false)
-    private User receiver;
+    @JoinColumn(name = "sender_user_id")
+    private AppUser sender;
+
+    @ManyToOne(cascade = ALL)
+    @JoinColumn(name = "receiver_user_id")
+    private AppUser receiver;
 
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
     @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
-
-    @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
 
 }

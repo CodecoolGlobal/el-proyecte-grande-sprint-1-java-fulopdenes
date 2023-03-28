@@ -1,17 +1,16 @@
 package com.codecool.TaskTiger.repository;
 
-import com.codecool.TaskTiger.model.user.User;
+import com.codecool.TaskTiger.model.user.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    User getUserById(Long id);
+public interface UserRepository extends JpaRepository<AppUser, Long> {
+    AppUser getUserById(Long id);
 
-    User getUserByUsernameAndPassword(String userName, String password);
+    Optional<AppUser> getUserByUsername(String username);
 
 
 
