@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.model.user;
 
 
+import com.codecool.TaskTiger.model.Reservation;
 import com.codecool.TaskTiger.model.TaskerReview;
 import com.codecool.TaskTiger.model.TimeSlot;
 import com.codecool.TaskTiger.model.WorkType;
@@ -10,7 +11,7 @@ import lombok.*;
 
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.*;
 
 
 @Getter
@@ -19,6 +20,9 @@ import static jakarta.persistence.CascadeType.ALL;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class TaskerInfo {
 
     @SequenceGenerator(name = "taskerInfo_sequence",
@@ -44,5 +48,12 @@ public class TaskerInfo {
     //    @ManyToMany(cascade = ALL)
     @Enumerated(EnumType.STRING)
     private List<WorkType> skills;
+
+    @OneToMany(
+            cascade = {CascadeType.MERGE, REMOVE, PERSIST},
+            mappedBy = "tasker"
+    )
+    @JsonManagedReference(value = "tasker-reservations")
+    private List<Reservation> reservations;
 
 }

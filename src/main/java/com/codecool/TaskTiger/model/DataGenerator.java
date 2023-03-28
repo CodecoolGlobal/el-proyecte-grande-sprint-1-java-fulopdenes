@@ -2,6 +2,7 @@ package com.codecool.TaskTiger.model;
 
 import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.model.user.Gender;
+import com.codecool.TaskTiger.model.user.TaskerInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -102,7 +103,7 @@ public class DataGenerator {
     }
 
 
-    public Reservation generateRandomReservation(AppUser client, AppUser tasker, Address address, WorkType workType) {
+    public Reservation generateRandomReservation(AppUser client, TaskerInfo tasker, Address address, WorkType workType) {
         LocalDateTime createdDate = LocalDateTime.now();
         String description = "Random description";
         String country = COUNTRIES[RANDOM.nextInt(COUNTRIES.length)];

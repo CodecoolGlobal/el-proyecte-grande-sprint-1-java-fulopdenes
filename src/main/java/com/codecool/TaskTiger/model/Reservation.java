@@ -1,6 +1,7 @@
 package com.codecool.TaskTiger.model;
 
 import com.codecool.TaskTiger.model.user.AppUser;
+import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.CascadeType.MERGE;
 import static jakarta.persistence.EnumType.STRING;
 
@@ -41,13 +41,13 @@ public class Reservation {
 
     @ManyToOne(cascade = MERGE)
     @JsonBackReference(value = "client-reservations")
-    @JoinColumn(name = "client_user_id", nullable = false, updatable = false)
+    @JoinColumn(name = "client_user_id")
     private AppUser client;
 
     @ManyToOne(cascade = MERGE)
     @JsonBackReference(value = "tasker-reservations")
-    @JoinColumn(name = "tasker_user_id", nullable = false, updatable = false)
-    private AppUser tasker;
+    @JoinColumn(name = "tasker_user_id")
+    private TaskerInfo tasker;
 
     @Column(name = "description")
     private String description;
@@ -68,9 +68,4 @@ public class Reservation {
     @JsonManagedReference
     private List<Message> messageList = new ArrayList<>();
 
-
-    public void addMessage(Message message) {
-        message.setReservation(this);
-        messageList.add(message);
-    }
 }

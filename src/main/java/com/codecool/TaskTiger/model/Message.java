@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Messages")
@@ -28,17 +28,17 @@ public class Message {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {REMOVE, MERGE})
     @JoinColumn(name = "reservation_id")
     @JsonBackReference
     private Reservation reservation;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "sender_user_id", nullable = false, updatable = false)
+    @JoinColumn(name = "sender_user_id")
     private AppUser sender;
 
     @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "receiver_user_id", nullable = false, updatable = false)
+    @JoinColumn(name = "receiver_user_id")
     private AppUser receiver;
 
     @Column(name = "created_date", nullable = false, updatable = false)

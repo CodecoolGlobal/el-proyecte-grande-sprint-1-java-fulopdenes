@@ -170,7 +170,7 @@ public class TaskTigerApplication {
                     .skills(siyarTypes).hourlyWage(20.0)
                     .build();
             siyarSaved.setTaskerInfo(siyarTaskerInfo);
-            userRepository.save(siyarSaved);
+            siyarSaved = userRepository.save(siyarSaved);
 
             AppUser taskerAppUser8 = userRepository.getUserById(siyarSaved.getId());
             for (int i = 0; i < 30; i++) {
@@ -183,7 +183,7 @@ public class TaskTigerApplication {
             zsolt.setRole(adminRole);
             AppUser savedZsolt = userRepository.save(zsolt);
             Address address = dataGenerator.generateRandomAddress();
-            Reservation reservation = dataGenerator.generateRandomReservation(savedZsolt, siyar, address,
+            Reservation reservation = dataGenerator.generateRandomReservation(savedZsolt, siyarSaved.getTaskerInfo(), address,
                     WorkType.HELP_MOVING);
             reservationRepository.save(reservation);
         };

@@ -9,6 +9,7 @@ import com.codecool.TaskTiger.model.Reservation;
 import com.codecool.TaskTiger.model.ReservationStatus;
 import com.codecool.TaskTiger.model.WorkType;
 import com.codecool.TaskTiger.model.user.AppUser;
+import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.repository.MessageRepository;
 import com.codecool.TaskTiger.repository.ReservationRepository;
 import com.codecool.TaskTiger.repository.UserRepository;
@@ -49,10 +50,12 @@ public class ReservationService {
     public Integer persistReservation(NewReservationDTO newReservationDTO) {
         AppUser client = userRepository.getUserById(newReservationDTO.client().longValue());
         AppUser tasker = userRepository.getUserById(newReservationDTO.tasker().longValue());
+        TaskerInfo taskerInfo = tasker.getTaskerInfo();
+
         Message message =
                 Message.builder().message(newReservationDTO.message()).createdDate(LocalDateTime.now()).sender(client).receiver(tasker).build();
         Reservation savedReservation = Reservation.builder().createdDate(LocalDateTime.now())
-                .client(client).tasker(tasker)
+                .client(client).tasker(taskerInfo)
                 .description(newReservationDTO.description()).workType(WorkType.valueOf(newReservationDTO.workType()))
                 .reservationStatus(ReservationStatus.PENDING).address(newReservationDTO.address())
                 .build();
