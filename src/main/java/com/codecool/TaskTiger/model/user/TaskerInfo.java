@@ -42,6 +42,7 @@ public class TaskerInfo {
     private List<TimeSlot> timeSlotList;
 
     private Double hourlyWage;
+    @JsonManagedReference
     @OneToMany(cascade = ALL, mappedBy = "reviewed")
     private List<TaskerReview> taskerReviewList;
 
@@ -50,7 +51,7 @@ public class TaskerInfo {
     private List<WorkType> skills;
 
     @OneToMany(
-            cascade = {CascadeType.MERGE, REMOVE, PERSIST},
+            cascade = {CascadeType.MERGE, REMOVE},
             mappedBy = "tasker"
     )
     @JsonManagedReference(value = "tasker-reservations")

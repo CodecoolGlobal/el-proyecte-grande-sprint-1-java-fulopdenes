@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.MERGE;
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.EnumType.STRING;
 
 
@@ -67,5 +67,9 @@ public class Reservation {
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Message> messageList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "reservation", cascade = {MERGE, REMOVE})
+    @JsonManagedReference(value = "taskerReview")
+    private List<TaskerReview> taskerReview;
 
 }

@@ -115,6 +115,7 @@ public class AppUser implements UserDetails {
     @OneToMany(
             cascade = ALL,
             mappedBy = "reviewedAppUser")
+    @JsonManagedReference
     private List<ClientReview> reviews;
     @OneToMany(
             cascade = {CascadeType.MERGE, REMOVE},
