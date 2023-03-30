@@ -20,6 +20,7 @@ public class ReservationDTO {
     private Long taskerId;
     private String description;
     private WorkType workType;
+    private Double duration;
     private ReservationStatus reservationStatus;
     private String address;
     private List<Long> messageIds;

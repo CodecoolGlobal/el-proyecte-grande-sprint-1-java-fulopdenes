@@ -4,7 +4,7 @@ import lombok.Builder;
 
 
 public record NewReservationDTO(Integer client, Integer tasker, String description,
-                                String workType, String address,
+                                String workType, Double duration, String address,
                                 String message) {
     @Builder public NewReservationDTO {}
 }

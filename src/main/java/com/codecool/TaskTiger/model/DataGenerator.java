@@ -48,7 +48,7 @@ public class DataGenerator {
         return sb.toString();
     }
 
-    public String time(LocalDateTime localDateTime) {
+    public String getHourAndMinutesFromLocalDate(LocalDateTime localDateTime) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%d:%02d", localDateTime.getHour(), localDateTime.getMinute()));
         return sb.toString();
@@ -57,10 +57,10 @@ public class DataGenerator {
     public TimeSlot generateRandomTimeSlot(AppUser appUser) {
         LocalDateTime startTime =
                 LocalDateTime.of(2023, 3, 13, 10, 0).plusDays(RANDOM.nextInt(7)).plusHours(RANDOM.nextInt(24));
-        LocalDateTime endTime = startTime.plusHours(1);
+        LocalDateTime endTime = startTime.plusHours(1).plusMinutes(45);
         boolean isReserved = RANDOM.nextBoolean();
 
-        String lable = time(startTime) + "-" + time(endTime);
+        String lable = getHourAndMinutesFromLocalDate(startTime) + "-" + getHourAndMinutesFromLocalDate(endTime);
 
         String backColor = isReserved ? "" : "#6aa84f";
         return TimeSlot.builder()
@@ -119,6 +119,7 @@ public class DataGenerator {
                 .client(client)
                 .tasker(tasker)
                 .description(description)
+                .duration(1.5)
                 .workType(workType)
                 .reservationStatus(reservationStatus)
                 .address(country + " " + zipcode + " " + county + " " + city + " " + street + " " + streetNumber)

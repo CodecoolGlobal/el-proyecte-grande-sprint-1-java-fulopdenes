@@ -56,10 +56,12 @@ public class Reservation {
     @Column(name = "worktype")
     private WorkType workType;
 
+    @Column(name = "duration")
+    private Double duration;
+
     @Column(name = "status", nullable = false)
     @Enumerated(STRING)
     private ReservationStatus reservationStatus;
-
 
     @Column(name = "address", nullable = false)
     private String address;

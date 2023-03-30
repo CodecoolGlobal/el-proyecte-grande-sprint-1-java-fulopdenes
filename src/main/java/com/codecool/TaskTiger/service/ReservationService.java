@@ -56,8 +56,11 @@ public class ReservationService {
                 Message.builder().message(newReservationDTO.message()).createdDate(LocalDateTime.now()).sender(client).receiver(tasker).build();
         Reservation savedReservation = Reservation.builder().createdDate(LocalDateTime.now())
                 .client(client).tasker(taskerInfo)
-                .description(newReservationDTO.description()).workType(WorkType.valueOf(newReservationDTO.workType()))
-                .reservationStatus(ReservationStatus.PENDING).address(newReservationDTO.address())
+                .description(newReservationDTO.description())
+                .workType(WorkType.valueOf(newReservationDTO.workType()))
+                .duration(newReservationDTO.duration())
+                .reservationStatus(ReservationStatus.PENDING)
+                .address(newReservationDTO.address())
                 .build();
         message.setReservation(savedReservation);
         savedReservation.setMessageList(List.of(message));
@@ -138,6 +141,7 @@ public class ReservationService {
         reservationDTO.setTaskerId(reservation.getTasker().getId());
         reservationDTO.setDescription(reservation.getDescription());
         reservationDTO.setWorkType(reservation.getWorkType());
+        reservationDTO.setDuration(reservation.getDuration());
         reservationDTO.setReservationStatus(reservation.getReservationStatus());
         reservationDTO.setAddress(reservation.getAddress());
         reservationDTO.setMessageIds(
