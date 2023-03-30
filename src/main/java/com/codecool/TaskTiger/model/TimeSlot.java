@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.CascadeType.MERGE;
 
 @Entity(name = "Timeslot")
@@ -40,16 +39,13 @@ public class TimeSlot {
     @Column(name = "text_lable", nullable = false)
     private String text;
 
-    @Column(name = "is_reserved", nullable = false)
-    private boolean isReserved;
+    @Enumerated(EnumType.STRING)
+    private TimeSlotStatusType status;
 
-    @Column(name = "slot_color", nullable = false)
+    @Column(nullable = false)
     private String backColor;
 
-    @ManyToOne(cascade = MERGE)
-    @JsonIgnore
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
+    private Long reservationId;
 
     @ManyToOne(cascade = MERGE)
     @JsonBackReference
