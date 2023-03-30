@@ -5,6 +5,8 @@ import com.codecool.TaskTiger.model.Reservation;
 import com.codecool.TaskTiger.model.TaskerReview;
 import com.codecool.TaskTiger.model.TimeSlot;
 import com.codecool.TaskTiger.model.WorkType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,11 +39,15 @@ public class TaskerInfo {
     @Column(name = "skill_info", columnDefinition = "TEXT")
     private String skillInfo;
 
-    @JsonManagedReference
-    @OneToMany(cascade = ALL, mappedBy = "tasker")
-    private List<TimeSlot> timeSlotList;
+//    @JsonManagedReference
+//    @OneToMany(cascade = ALL, mappedBy = "tasker")
+//    private List<TimeSlot> timeSlotList;
 
     private Double hourlyWage;
+
+    @JsonManagedReference
+    @JsonIgnore
+    //@JsonIgnoreProperties({"reviewed, reviewer"})
     @OneToMany(cascade = ALL, mappedBy = "reviewed")
     private List<TaskerReview> taskerReviewList;
 
@@ -50,10 +56,11 @@ public class TaskerInfo {
     private List<WorkType> skills;
 
     @OneToMany(
-            cascade = {CascadeType.MERGE, REMOVE, PERSIST},
+            cascade = {CascadeType.MERGE, REMOVE},
             mappedBy = "tasker"
     )
     @JsonManagedReference(value = "tasker-reservations")
+    @JsonIgnoreProperties({"tasker", "client"})
     private List<Reservation> reservations;
 
 }
