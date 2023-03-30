@@ -22,9 +22,9 @@ import static jakarta.persistence.EnumType.STRING;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Reservation {
 
     @Id
@@ -47,6 +47,7 @@ public class Reservation {
     @ManyToOne(cascade = MERGE)
     @JsonBackReference(value = "tasker-reservations")
     @JoinColumn(name = "tasker_user_id")
+    @JsonIgnoreProperties("reservations")
     private TaskerInfo tasker;
 
     @Column(name = "description")
@@ -66,6 +67,7 @@ public class Reservation {
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    @JsonIgnoreProperties("reservation")
     private List<Message> messageList = new ArrayList<>();
 
     @OneToMany(mappedBy = "reservation", cascade = {MERGE, REMOVE})

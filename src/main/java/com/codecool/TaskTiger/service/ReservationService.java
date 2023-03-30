@@ -54,14 +54,19 @@ public class ReservationService {
 
         Message message =
                 Message.builder().message(newReservationDTO.message()).createdDate(LocalDateTime.now()).sender(client).receiver(tasker).build();
-        Reservation savedReservation = Reservation.builder().createdDate(LocalDateTime.now())
+
+        Reservation savedReservation = Reservation.builder()
+                .createdDate(LocalDateTime.now())
                 .client(client).tasker(taskerInfo)
-                .description(newReservationDTO.description()).workType(WorkType.valueOf(newReservationDTO.workType()))
-                .reservationStatus(ReservationStatus.PENDING).address(newReservationDTO.address())
+                .description(newReservationDTO.description())
+                .workType(WorkType.valueOf(newReservationDTO.workType()))
+                .reservationStatus(ReservationStatus.PENDING)
+                .address(newReservationDTO.address())
                 .build();
         message.setReservation(savedReservation);
+
         savedReservation.setMessageList(List.of(message));
-        savedReservation = reservationRepository.save(savedReservation);
+        savedReservation = reservationRepository.saveAndFlush(savedReservation);
         return savedReservation.getId().intValue();
     }
 

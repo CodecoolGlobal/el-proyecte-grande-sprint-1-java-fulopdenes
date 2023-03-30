@@ -2,6 +2,7 @@ package com.codecool.TaskTiger.model;
 
 import com.codecool.TaskTiger.model.user.AppUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,6 +32,7 @@ public class Message {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {REMOVE, MERGE})
     @JoinColumn(name = "reservation_id")
     @JsonBackReference
+    @JsonIgnoreProperties({"tasker, client"})
     private Reservation reservation;
 
     @ManyToOne(cascade = ALL)

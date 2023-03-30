@@ -4,6 +4,7 @@ package com.codecool.TaskTiger.model;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,6 +54,7 @@ public class TimeSlot {
 
     @ManyToOne(cascade = MERGE)
     @JsonBackReference
+    @JsonIgnoreProperties("timeSlotList")
     @JoinColumn(name = "tasker_user_id", nullable = false)
     private TaskerInfo tasker;
 }

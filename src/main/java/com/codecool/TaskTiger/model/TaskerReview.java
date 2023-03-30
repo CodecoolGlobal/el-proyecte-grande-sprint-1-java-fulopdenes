@@ -3,6 +3,8 @@ package com.codecool.TaskTiger.model;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.model.user.AppUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,11 +29,12 @@ public class TaskerReview {
 
     @ManyToOne(cascade = ALL)
     @JsonBackReference
+    @JsonIgnoreProperties("taskerReviewList")
     @JoinColumn(name = "reviewed_user_id", nullable = false, updatable = false)
     private TaskerInfo reviewed;
 
     @ManyToOne(cascade = ALL)
-    @JsonBackReference
+    //@JsonBackReference
     @JoinColumn(name = "reviewer_user_id", nullable = false, updatable = false)
     private AppUser reviewer;
 
@@ -48,8 +51,9 @@ public class TaskerReview {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {REMOVE, MERGE})
+    @ManyToOne(cascade = {REMOVE, MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id")
     @JsonBackReference(value = "taskerReview")
+    @JsonIgnore
     private Reservation reservation;
 }
