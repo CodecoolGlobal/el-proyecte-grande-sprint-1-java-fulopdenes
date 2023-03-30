@@ -4,7 +4,6 @@ import com.codecool.TaskTiger.dto.MessageDTO;
 import com.codecool.TaskTiger.dto.NewReservationDTO;
 import com.codecool.TaskTiger.dto.ReservationDTO;
 import com.codecool.TaskTiger.dto.StatusDTO;
-import com.codecool.TaskTiger.model.ReservationStatus;
 import com.codecool.TaskTiger.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +44,6 @@ public class ReservationController {
 //
     @GetMapping("/{id}")
     public ReservationDTO getReservationById(@PathVariable Integer id) {
-
         return reservationService.getReservationById(id.longValue());
     }
 
@@ -58,7 +56,6 @@ public class ReservationController {
     public List<MessageDTO> getMessageByResId(@PathVariable Integer reservationId) {
         return reservationService.getMessagesByReservation(reservationId.longValue());
     }
-
 
     @PutMapping("/message/{reservationId}")
     public boolean persistNewMessage(@RequestBody MessageDTO messageDTO, @PathVariable Integer reservationId) {
