@@ -1,0 +1,2 @@
+FROM postgres:15.2-alpine3.17@sha256:07ec36ad2d5ab9250f38c8ef749239b662cf15d03c9ddb7167422edbbdf71156
+
