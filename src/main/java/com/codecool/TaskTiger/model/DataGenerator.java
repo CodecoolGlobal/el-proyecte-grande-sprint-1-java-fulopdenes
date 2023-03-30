@@ -56,19 +56,20 @@ public class DataGenerator {
 
     public TimeSlot generateRandomTimeSlot(AppUser appUser) {
         LocalDateTime startTime =
-                LocalDateTime.of(2023, 3, 13, 10, 0).plusDays(RANDOM.nextInt(7)).plusHours(RANDOM.nextInt(24));
+                LocalDateTime.of(2023, 3, 30, 10, 0).plusDays(RANDOM.nextInt(7)).plusHours(RANDOM.nextInt(24));
         LocalDateTime endTime = startTime.plusHours(1).plusMinutes(45);
         boolean isReserved = RANDOM.nextBoolean();
 
         String lable = getHourAndMinutesFromLocalDate(startTime) + "-" + getHourAndMinutesFromLocalDate(endTime);
 
-        String backColor = isReserved ? "" : "#6aa84f";
+        String backColor = "#6aa84f";
+
         return TimeSlot.builder()
                 .start(startTime)
                 .end(endTime)
-                .isReserved(isReserved)
                 .backColor(backColor)
                 .text(lable)
+                .status(TimeSlotStatusType.FREE)
                 .tasker(appUser.getTaskerInfo())
                 .build();
     }
