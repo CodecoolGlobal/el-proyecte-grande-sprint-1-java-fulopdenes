@@ -60,7 +60,7 @@ public class TaskerInfo {
             mappedBy = "tasker"
     )
     @JsonManagedReference(value = "tasker-reservations")
-    @JsonIgnoreProperties({"tasker", "client"})
+    @JsonIgnoreProperties({"tasker", "client", "messageList"})
     private List<Reservation> reservations;
 
 }

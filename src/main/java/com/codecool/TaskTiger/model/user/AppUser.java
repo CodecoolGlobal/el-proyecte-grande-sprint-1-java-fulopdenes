@@ -143,7 +143,7 @@ public class AppUser implements UserDetails {
 
     @OneToOne(cascade = {MERGE, REMOVE})
     @JoinColumn(name = "tasker_info_id")
-    @JsonIgnoreProperties({"taskerReviewList", "reservations"})
+    @JsonIgnoreProperties({"taskerReviewList"})
     private TaskerInfo taskerInfo;
 
     @Column(name = "is_tasker", nullable = false)
