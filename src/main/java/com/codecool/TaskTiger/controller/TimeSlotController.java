@@ -20,6 +20,8 @@ public class TimeSlotController {
         this.timeSlotService = timeSlotService;
     }
 
+    // TODO: simplify endpoint paths.
+
     @GetMapping("/tasker/{id}")
     public List<TimeSlot> getTimeSlotByTaskerID(@PathVariable Long id) {
         return timeSlotService.getTimeSlotByTaskerID(id);

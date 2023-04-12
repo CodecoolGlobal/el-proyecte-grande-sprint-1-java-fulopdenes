@@ -14,44 +14,23 @@ import java.util.List;
 @RequestMapping("reservation")
 public class ReservationController {
 
-
     private final ReservationService reservationService;
 
     @Autowired
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
-//
-//    @GetMapping("/all/client/{id}")
-//    public List<Reservation> getReservationByClient(@PathVariable Long id) {
-//        List<ReservationDTO> r = reservationService.getReservationsByClientId(id);
-//        return r.stream().map(reservationDTO -> Reservation.builder().createdDate(reservationDTO.createdDate())
-//                .client(reservationDTO.client()).tasker(reservationDTO.tasker())
-//                .description(reservationDTO.description()).workType(reservationDTO.workType())
-//                .reservationStatus(reservationDTO.reservationStatus()).address(reservationDTO.address())
-//                .messageList(reservationDTO.messageList()).build()).toList();
-//    }
-//
-//    @GetMapping("/all/tasker/{id}")
-//    public List<Reservation> getReservationByTasker(@PathVariable Long id) {
-//        List<ReservationDTO> r = reservationService.getReservationsByTaskerId(id);
-//        return r.stream().map(reservationDTO -> Reservation.builder().createdDate(reservationDTO.createdDate())
-//                .client(reservationDTO.client()).tasker(reservationDTO.tasker())
-//                .description(reservationDTO.description()).workType(reservationDTO.workType())
-//                .reservationStatus(reservationDTO.reservationStatus()).address(reservationDTO.address())
-//                .messageList(reservationDTO.messageList()).build()).toList();
-//    }
-//
+
     @GetMapping("/{id}")
     public ReservationDTO getReservationById(@PathVariable Integer id) {
         return reservationService.getReservationById(id.longValue());
     }
 
-
     @PostMapping
     public Integer persistReservation(@RequestBody NewReservationDTO newReservationDTO) {
         return reservationService.persistReservation(newReservationDTO);
     }
+    // TODO: suggest also to create a messageController.
     @GetMapping("/message/{reservationId}")
     public List<MessageDTO> getMessageByResId(@PathVariable Integer reservationId) {
         return reservationService.getMessagesByReservation(reservationId.longValue());

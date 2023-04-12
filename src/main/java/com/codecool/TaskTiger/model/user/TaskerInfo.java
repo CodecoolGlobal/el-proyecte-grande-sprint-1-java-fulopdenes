@@ -54,6 +54,7 @@ public class TaskerInfo {
     //    @ManyToMany(cascade = ALL)
     @Enumerated(EnumType.STRING)
     private List<WorkType> skills;
+    // TODO: change method of recording skills list in database.
 
     @OneToMany(
             cascade = {CascadeType.MERGE, REMOVE},

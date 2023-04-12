@@ -37,8 +37,6 @@ public class ReservationService {
         this.messageRepository = messageRepository;
     }
 
-
-
     public boolean modifyReservationStatus(Integer reservationId, StatusDTO status){
         Reservation reservation = reservationRepository.findById(reservationId.longValue()).orElseThrow();
         ReservationStatus reservationStatus = ReservationStatus.valueOf(status.reservationStatus().toUpperCase());
@@ -64,6 +62,7 @@ public class ReservationService {
                 .reservationStatus(ReservationStatus.PENDING)
                 .address(newReservationDTO.address())
                 .build();
+
         message.setReservation(savedReservation);
 
         savedReservation.setMessageList(List.of(message));

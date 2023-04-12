@@ -17,6 +17,7 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
+    // TODO: refactor login: moving this back to the filter chain.
     @PostMapping("/login")
     public ResponseEntity <String> authenticate (@RequestBody LoginDTO loginDTO){
         return ResponseEntity.ok(authenticationService.authenticate(loginDTO));
