@@ -1,13 +1,14 @@
 package com.codecool.TaskTiger.controller;
 
-import com.codecool.TaskTiger.dto.TimeSlotStatusDTO;
+import com.codecool.TaskTiger.dto.TimeSlotStatusAndReservationIdDTO;
+import com.codecool.TaskTiger.dto.TimeSlotsIdsAndStatusDTO;
+import com.codecool.TaskTiger.dto.TimeSlotsIdsAndReservationIdDTO;
 import com.codecool.TaskTiger.model.TimeSlot;
 import com.codecool.TaskTiger.service.TimeSlotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("timeslots")
@@ -20,28 +21,26 @@ public class TimeSlotController {
         this.timeSlotService = timeSlotService;
     }
 
-    // TODO: simplify endpoint paths.
 
-    @GetMapping("/tasker/{id}")
-    public List<TimeSlot> getTimeSlotByTaskerID(@PathVariable Long id) {
-        return timeSlotService.getTimeSlotByTaskerID(id);
+    @GetMapping("/tasker/{taskerId}")
+    public List<TimeSlot> getAllTimeSlotsByTaskerID(@PathVariable Long taskerId) {
+        return timeSlotService.getTimeSlotByTaskerID(taskerId);
     }
 
-    @GetMapping("/tasker/slot/{id}")
-    public Optional<TimeSlot> getTimeSlotByID(@PathVariable Long id) {
-        return timeSlotService.getTimeSlotByTimeSlotID(id);
+    @PutMapping("/reservation")
+    public boolean addNewReservationIdToTimeSlots(
+            @RequestBody TimeSlotsIdsAndReservationIdDTO timeSlotsIdsAndReservationIdDTO) {
+        return timeSlotService.addNewReservationIdToTimeSlotsTable(timeSlotsIdsAndReservationIdDTO);
+    }
+    @PutMapping("/statusBySlotIds")
+    public boolean setStatusByTimeSlotIds(@RequestBody TimeSlotsIdsAndStatusDTO timeSlotsIdsAndStatusDTO) {
+        return timeSlotService.setStatusByTimeSlotIds(timeSlotsIdsAndStatusDTO);
     }
 
-    @PutMapping("/tasker/slot/")
-    public boolean modifyTimeSlotStatus(@RequestBody TimeSlotStatusDTO timeSlotStatus) {
-        return timeSlotService.modifyTimeSlotStatus(timeSlotStatus);
+    @PutMapping("/reservation/")
+    public boolean setStatusByReservationId(@RequestBody TimeSlotStatusAndReservationIdDTO timeSlotStatusAndReservationIdDTO) {
+        return timeSlotService.setStatusByReservationId(timeSlotStatusAndReservationIdDTO);
     }
 
-    @PutMapping("/tasker/reservation/modify/{reservationId}")
-    public boolean modifyTimeSlotStatusByReservationId(
-            @RequestBody TimeSlotStatusDTO timeSlotStatus,
-            @PathVariable Long reservationId) {
-        return timeSlotService.modifyTimeSlotStatusByReservationId(reservationId, timeSlotStatus);
-    }
 
 }

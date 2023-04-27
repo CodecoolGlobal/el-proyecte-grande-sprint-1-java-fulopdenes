@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
-    List<TimeSlot> findTimeSlotByTaskerId(Long id);
     Optional<TimeSlot> findTimeSlotById(Long id);
+    List<TimeSlot> findTimeSlotByTaskerId(Long id);
     List<TimeSlot> findTimeSlotsByReservationId(Long id);
 }
