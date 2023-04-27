@@ -20,25 +20,25 @@ public class TimeSlotController {
     public TimeSlotController(TimeSlotService timeSlotService) {
         this.timeSlotService = timeSlotService;
     }
-
+    @PutMapping("/statusBySlotIds")
+    public boolean setStatusByTimeSlotIds(@RequestBody TimeSlotsIdsAndStatusDTO timeSlotsIdsAndStatusDTO) {
+        return timeSlotService.setStatusByTimeSlotIds(timeSlotsIdsAndStatusDTO);
+    }
 
     @GetMapping("/tasker/{taskerId}")
     public List<TimeSlot> getAllTimeSlotsByTaskerID(@PathVariable Long taskerId) {
         return timeSlotService.getTimeSlotByTaskerID(taskerId);
     }
 
-    @PutMapping("/reservation")
+    @PutMapping("/reservation/add")
     public boolean addNewReservationIdToTimeSlots(
             @RequestBody TimeSlotsIdsAndReservationIdDTO timeSlotsIdsAndReservationIdDTO) {
         return timeSlotService.addNewReservationIdToTimeSlotsTable(timeSlotsIdsAndReservationIdDTO);
     }
-    @PutMapping("/statusBySlotIds")
-    public boolean setStatusByTimeSlotIds(@RequestBody TimeSlotsIdsAndStatusDTO timeSlotsIdsAndStatusDTO) {
-        return timeSlotService.setStatusByTimeSlotIds(timeSlotsIdsAndStatusDTO);
-    }
 
-    @PutMapping("/reservation/")
-    public boolean setStatusByReservationId(@RequestBody TimeSlotStatusAndReservationIdDTO timeSlotStatusAndReservationIdDTO) {
+    @PutMapping("/reservation/set")
+    public boolean setStatusByReservationId(
+            @RequestBody TimeSlotStatusAndReservationIdDTO timeSlotStatusAndReservationIdDTO) {
         return timeSlotService.setStatusByReservationId(timeSlotStatusAndReservationIdDTO);
     }
 
