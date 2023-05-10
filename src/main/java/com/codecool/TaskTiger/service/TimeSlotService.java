@@ -45,6 +45,7 @@ public class TimeSlotService {
     public boolean setStatusByReservationId(TimeSlotStatusAndReservationIdDTO timeSlotStatusAndReservationIdDTO) {
         List<TimeSlot> timeSlots = timeSlotRepository.findTimeSlotsByReservationId(timeSlotStatusAndReservationIdDTO.reservationId());
         TimeSlotStatusType timeSlotStatusType = timeSlotStatusAndReservationIdDTO.timeSlotStatusType();
+
         String backGroundColor;
         backGroundColor = switch (timeSlotStatusType) {
             case RESERVED -> "#5bb7c5";
@@ -64,14 +65,14 @@ public class TimeSlotService {
         return true;
     }
 
-     public boolean addNewReservationIdToTimeSlotsTable(TimeSlotsIdsAndReservationIdDTO timeSlotsIdsAndReservationIdDTO) {
-         for (Long currentTimeSlotId : timeSlotsIdsAndReservationIdDTO.timeSlotIds()) {
-             TimeSlot timeSlot = timeSlotRepository.findTimeSlotById(currentTimeSlotId).orElseThrow();
-             timeSlot.setReservationId(timeSlotsIdsAndReservationIdDTO.reservationId());
-             timeSlot.setBackColor("#ff6d42");
-             timeSlot.setStatus(TimeSlotStatusType.PENDING);
-             timeSlotRepository.save(timeSlot);
-         }
-         return true;
+    public boolean addNewReservationIdToTimeSlotsTable(TimeSlotsIdsAndReservationIdDTO timeSlotsIdsAndReservationIdDTO) {
+        for (Long currentTimeSlotId : timeSlotsIdsAndReservationIdDTO.timeSlotIds()) {
+            TimeSlot timeSlot = timeSlotRepository.findTimeSlotById(currentTimeSlotId).orElseThrow();
+            timeSlot.setReservationId(timeSlotsIdsAndReservationIdDTO.reservationId());
+            timeSlot.setBackColor("#ff6d42");
+            timeSlot.setStatus(TimeSlotStatusType.PENDING);
+            timeSlotRepository.save(timeSlot);
+        }
+        return true;
     }
 }
