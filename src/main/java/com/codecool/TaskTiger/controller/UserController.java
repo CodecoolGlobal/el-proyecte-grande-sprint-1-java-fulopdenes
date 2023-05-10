@@ -17,6 +17,8 @@ public class UserController {
 
     private final UserService userService;
 
+    // TODO: reorganize endpoints based on infoType
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;

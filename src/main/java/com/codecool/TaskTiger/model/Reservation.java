@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.MERGE;
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.EnumType.STRING;
 
 
@@ -22,9 +22,9 @@ import static jakarta.persistence.EnumType.STRING;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Reservation {
 
     @Id
@@ -47,6 +47,7 @@ public class Reservation {
     @ManyToOne(cascade = MERGE)
     @JsonBackReference(value = "tasker-reservations")
     @JoinColumn(name = "tasker_user_id")
+    @JsonIgnoreProperties("reservations")
     private TaskerInfo tasker;
 
     @Column(name = "description")
@@ -56,16 +57,23 @@ public class Reservation {
     @Column(name = "worktype")
     private WorkType workType;
 
+    @Column(name = "duration")
+    private Double duration;
+
     @Column(name = "status", nullable = false)
     @Enumerated(STRING)
     private ReservationStatus reservationStatus;
-
 
     @Column(name = "address", nullable = false)
     private String address;
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
+    @JsonIgnoreProperties("reservation")
     private List<Message> messageList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "reservation", cascade = {MERGE, REMOVE})
+    @JsonManagedReference(value = "taskerReview")
+    private List<TaskerReview> taskerReview;
 
 }

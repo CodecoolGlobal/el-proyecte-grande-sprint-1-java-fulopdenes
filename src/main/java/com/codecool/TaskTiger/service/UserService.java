@@ -88,6 +88,8 @@ public class UserService {
     public List<AppUser> filterUserByWorkType(List<String> workTypes) {
         return userRepository.findAll().stream().filter(AppUser::isTasker).filter(user -> new HashSet<>(user.getTaskerInfo()
                 .getSkills()).containsAll(workTypes.stream().map(WorkType::valueOf).toList())).collect(Collectors.toList());
+//        List<WorkType> workTypeEnums = workTypes.stream().map(WorkType::valueOf).toList();
+//        return userRepository.findTaskersBySkills(workTypeEnums);
     }
 
     public AppUser getUserFromToken(HttpServletRequest request) {

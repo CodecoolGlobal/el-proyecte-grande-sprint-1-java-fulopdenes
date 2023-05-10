@@ -1,0 +1,14 @@
+
+**/*.o
+**/*.a
+*.log
+test/
+tmp/
+
+src/
+.idea
+
+.git/
+.gitignore
+
+Dockerfile

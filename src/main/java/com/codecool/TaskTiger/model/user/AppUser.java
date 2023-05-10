@@ -1,10 +1,8 @@
 package com.codecool.TaskTiger.model.user;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import com.codecool.TaskTiger.model.ClientReview;
 import com.codecool.TaskTiger.model.Reservation;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,9 +24,9 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Builder
 @Entity(name = "Users")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class AppUser implements UserDetails {
     @Column(
 
@@ -51,6 +49,7 @@ public class AppUser implements UserDetails {
             updatable = false
     )
     private Long id;
+
     @Column(
             name = "username",
             nullable = false,
@@ -58,76 +57,95 @@ public class AppUser implements UserDetails {
             updatable = false
     )
     private String username;
+
     @Column(
             name = "firstName",
             nullable = false
     )
     private String firstName;
+
     @Column(
             name = "lastName",
             nullable = false
     )
     private String lastName;
+
     @Column(
             name = "dob",
             nullable = false
     )
     private LocalDate dob;
+
     @Enumerated(STRING)
     @Column(
             name = "gender"
     )
     private Gender gender;
+
     @Column(
             name = "shortIntroduction",
             columnDefinition = "TEXT"
     )
     private String shortIntroduction;
+
     @Column(
             name = "email",
             unique = true,
             nullable = false
     )
     private String email;
+
     @Column(
             name = "phoneNumber",
             unique = true
     )
     private String phoneNumber;
+
     @Column(
             name = "isBanned"
     )
     private boolean isBanned;
+
     @Column(
             name = "isActivated"
     )
     private boolean isActivated;
+
     @Column(
             name = "password",
             nullable = false
     )
     private String password;
+
     @Column(
             name = "activation_date",
             updatable = false
     )
     private LocalDateTime activationDateTime;
-    @OneToMany(
-            cascade = ALL,
-            mappedBy = "reviewedAppUser")
-    private List<ClientReview> reviews;
+
+//    @OneToMany(
+//            cascade = ALL,
+//            mappedBy = "reviewed")
+//    @JsonManagedReference
+//    private List<ClientReview> reviews;
+
     @OneToMany(
             cascade = {CascadeType.MERGE, REMOVE},
             mappedBy = "client"
     )
     @JsonManagedReference(value = "client-reservations")
+    @JsonIgnoreProperties({"client", "tasker", "messageList", "taskerReview"})
     private List<Reservation> reservations;
+
     @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "user_role_id")
     private Role role;
+
     @OneToOne(cascade = {MERGE, REMOVE})
     @JoinColumn(name = "tasker_info_id")
+    @JsonIgnoreProperties({"taskerReviewList"})
     private TaskerInfo taskerInfo;
+
     @Column(name = "is_tasker", nullable = false)
     private boolean isTasker;
 
