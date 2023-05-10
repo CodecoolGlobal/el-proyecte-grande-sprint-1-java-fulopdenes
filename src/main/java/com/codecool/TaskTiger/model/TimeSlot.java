@@ -53,4 +53,5 @@ public class TimeSlot {
     @JsonIgnoreProperties("timeSlotList")
     @JoinColumn(name = "tasker_user_id", nullable = false)
     private TaskerInfo tasker;
+
 }

@@ -4,14 +4,12 @@ import com.codecool.TaskTiger.dto.MessageDTO;
 import com.codecool.TaskTiger.dto.NewReservationDTO;
 import com.codecool.TaskTiger.dto.ReservationDTO;
 import com.codecool.TaskTiger.dto.StatusDTO;
-import com.codecool.TaskTiger.model.Message;
-import com.codecool.TaskTiger.model.Reservation;
-import com.codecool.TaskTiger.model.ReservationStatus;
-import com.codecool.TaskTiger.model.WorkType;
+import com.codecool.TaskTiger.model.*;
 import com.codecool.TaskTiger.model.user.AppUser;
 import com.codecool.TaskTiger.model.user.TaskerInfo;
 import com.codecool.TaskTiger.repository.MessageRepository;
 import com.codecool.TaskTiger.repository.ReservationRepository;
+import com.codecool.TaskTiger.repository.TimeSlotRepository;
 import com.codecool.TaskTiger.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.codecool.TaskTiger.model.TimeSlotStatusType.FREE;
+
 @Service
 public class ReservationService {
 
@@ -29,12 +29,14 @@ public class ReservationService {
     private final UserRepository userRepository;
 
     private final MessageRepository messageRepository;
+    private final TimeSlotRepository timeSlotRepository;
 
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository, UserRepository userRepository, MessageRepository messageRepository) {
+    public ReservationService(ReservationRepository reservationRepository, UserRepository userRepository, MessageRepository messageRepository, TimeSlotRepository timeSlotRepository) {
         this.reservationRepository = reservationRepository;
         this.userRepository = userRepository;
         this.messageRepository = messageRepository;
+        this.timeSlotRepository = timeSlotRepository;
     }
 
     public boolean modifyReservationStatus(Integer reservationId, StatusDTO status){
@@ -152,5 +154,14 @@ public class ReservationService {
                         .collect(Collectors.toList())
         );
         return reservationDTO;
+    }
+
+    public boolean deleteReservationById(Long reservationId) {
+        List<TimeSlot> timeSlots = timeSlotRepository.findTimeSlotsByReservationId(reservationId);
+        timeSlots.forEach(timeSlot -> timeSlot.setReservationId(null));
+        timeSlots.forEach(timeSlot -> timeSlot.setStatus(FREE));
+        timeSlotRepository.saveAll(timeSlots);
+        reservationRepository.deleteById(reservationId);
+        return true;
     }
 }

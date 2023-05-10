@@ -26,6 +26,11 @@ public class ReservationController {
         return reservationService.getReservationById(id.longValue());
     }
 
+    @DeleteMapping("/{id}")
+    public boolean deleteReservationById(@PathVariable Integer id) {
+        return reservationService.deleteReservationById(id.longValue());
+    }
+
     @PostMapping
     public Integer persistReservation(@RequestBody NewReservationDTO newReservationDTO) {
         return reservationService.persistReservation(newReservationDTO);
@@ -46,4 +51,5 @@ public class ReservationController {
                                            @PathVariable Integer reservationId) {
         return reservationService.modifyReservationStatus(reservationId, reservationStatus);
     }
+
 }
