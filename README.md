@@ -31,7 +31,7 @@ You'll need the Maven build tool and Java 17 to build the application. For the d
 Now the application can be started. The database will be filled with some initial data. Spring Boot will launch the server, and the endpoints will be live.
 
 ## Screenshots
-
+This server endpoints:
 <p align="center">
     <img width="50%" src="https://i.kek.sh/W8VKLwWG6JD.jpg">
 </p>
