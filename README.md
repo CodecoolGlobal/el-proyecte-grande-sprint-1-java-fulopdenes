@@ -29,3 +29,15 @@ _This README is only about the backend part of the project. For the frontend doc
 You'll need the Maven build tool and Java 17 to build the application. For the database a new PostgreSQL database will be needed called `tasktiger`. Username and password for the database need to be passed to the application as _environment variables_.
 
 Now the application can be started. The database will be filled with some initial data. Spring Boot will launch the server, and the endpoints will be live.
+
+## Screenshots
+This server endpoints:
+<p align="center">
+    <img width="50%" src="https://i.kek.sh/W8VKLwWG6JD.jpg">
+</p>
+<p align="center">
+<img width="50%" src="https://i.kek.sh/MxqL5kiUokT.jpg">
+</p>
+<p align="center">
+    <img width="50%" src="https://i.kek.sh/YTnLynn9xoS.jpg">
+</p>
