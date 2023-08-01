@@ -57,7 +57,7 @@ public class DataGenerator {
     public TimeSlot generateRandomTimeSlot(AppUser appUser) {
         LocalDateTime startTime =
                 LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
-                        LocalDateTime.now().getDayOfMonth()-3, 10, 0).plusDays(RANDOM.nextInt(7)).plusHours(RANDOM.nextInt(24));
+                        LocalDateTime.now().getDayOfMonth(), 10, 0).plusDays(RANDOM.nextInt(7)).plusHours(RANDOM.nextInt(24));
         LocalDateTime endTime = startTime.plusHours(1).plusMinutes(45);
         boolean isReserved = RANDOM.nextBoolean();
 
